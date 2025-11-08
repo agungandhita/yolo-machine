@@ -9,8 +9,7 @@ __pycache__/
 *.log
 *.tmp
 
-# Data dan upload lokal (tidak perlu ke repo)
-dataset/
+# Upload lokal (tidak perlu ke repo)
 static/uploads/
 
 # Build/artefak sementara
