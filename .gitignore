@@ -1,0 +1,24 @@
+.venv-cnn/
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+*.log
+*.tmp
+
+# Data dan upload lokal (tidak perlu ke repo)
+dataset/
+static/uploads/
+
+# Build/artefak sementara
+*.cache/
+*.egg-info/
+dist/
+build/
+
+# Editor/IDE
+.vscode/
+.idea/
