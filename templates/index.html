@@ -183,6 +183,18 @@
                                     <h6><i class="fas fa-lightbulb me-2"></i>Rekomendasi:</h6>
                                     <ul id="recommendations-list" class="list-unstyled"></ul>
                                 </div>
+                                
+                                <!-- Medicine Recommendations -->
+                                <div id="medicine-section" class="mt-3" style="display: none;">
+                                    <hr>
+                                    <h6 class="text-danger"><i class="fas fa-pills me-2"></i>Rekomendasi Obat Kimia:</h6>
+                                    <ul id="medicine-list" class="list-unstyled mb-3"></ul>
+                                    
+                                    <h6 class="text-success"><i class="fas fa-leaf me-2"></i>Alternatif Organik:</h6>
+                                    <ul id="organic-list" class="list-unstyled mb-3"></ul>
+                                    
+                                    <div id="medicine-notes" class="alert alert-warning mt-3 text-pre-wrap"></div>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <div id="severity-badge" class="text-center mb-3"></div>
@@ -491,6 +503,67 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             } else {
                 preventionList.innerHTML = '<li class="text-muted">Praktik pertanian yang baik</li>';
+            }
+            
+            // Tampilkan rekomendasi obat
+            const medicineSection = document.getElementById('medicine-section');
+            const medicineList = document.getElementById('medicine-list');
+            const organicList = document.getElementById('organic-list');
+            const medicineNotes = document.getElementById('medicine-notes');
+            
+            if ((data.recommended_medicines && data.recommended_medicines.length > 0) || 
+                (data.organic_alternatives && data.organic_alternatives.length > 0)) {
+                
+                medicineSection.style.display = 'block';
+                
+                // Obat Kimia
+                medicineList.innerHTML = '';
+                if (data.recommended_medicines && data.recommended_medicines.length > 0) {
+                    data.recommended_medicines.forEach(med => {
+                        const li = document.createElement('li');
+                        li.className = 'mb-2';
+                        li.innerHTML = `
+                            <strong>${med.name}</strong> (${med.type})<br>
+                            <small class="text-muted">
+                                <i class="fas fa-flask me-1"></i>Bahan aktif: ${med.active_ingredient}<br>
+                                <i class="fas fa-prescription-bottle me-1"></i>Dosis: ${med.dosage}
+                            </small>
+                        `;
+                        medicineList.appendChild(li);
+                    });
+                } else {
+                    medicineList.innerHTML = '<li class="text-muted">Tidak ada rekomendasi obat kimia khusus</li>';
+                }
+                
+                // Alternatif Organik
+                organicList.innerHTML = '';
+                if (data.organic_alternatives && data.organic_alternatives.length > 0) {
+                    data.organic_alternatives.forEach(org => {
+                        const li = document.createElement('li');
+                        li.className = 'mb-2';
+                        li.innerHTML = `
+                            <strong>${org.name}</strong><br>
+                            <small class="text-muted">
+                                <i class="fas fa-blender me-1"></i>Bahan: ${org.ingredients}<br>
+                                <i class="fas fa-spray-can me-1"></i>Aplikasi: ${org.application}
+                            </small>
+                        `;
+                        organicList.appendChild(li);
+                    });
+                } else {
+                    organicList.innerHTML = '<li class="text-muted">Tidak ada alternatif organik khusus</li>';
+                }
+                
+                // Catatan
+                if (data.medicine_notes) {
+                    medicineNotes.textContent = data.medicine_notes;
+                    medicineNotes.style.display = 'block';
+                } else {
+                    medicineNotes.style.display = 'none';
+                }
+                
+            } else {
+                medicineSection.style.display = 'none';
             }
             
             displayResults(data);

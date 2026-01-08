@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import os
+import json
 import cv2
 import numpy as np
 import pickle
@@ -20,6 +21,145 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 cnn_model = None
 class_names = None
 model_metadata = None
+medicine_database = None
+disease_info_database = None
+
+def load_medicine_database():
+    """Load database rekomendasi obat dari JSON file"""
+    global medicine_database
+    
+    try:
+        medicine_file = 'medicine_recommendation.json'
+        
+        if not os.path.exists(medicine_file):
+            print(f"⚠️ Warning: {medicine_file} not found. Medicine recommendations will not be available.")
+            medicine_database = {}
+            return False
+        
+        with open(medicine_file, 'r', encoding='utf-8') as f:
+            medicine_database = json.load(f)
+        
+        print(f"✅ Medicine database loaded: {len(medicine_database)} diseases with recommendations")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Error loading medicine database: {e}")
+        medicine_database = {}
+        return False
+
+def load_disease_info_database():
+    """Load database informasi penyakit dari JSON file"""
+    global disease_info_database
+    
+    try:
+        disease_file = 'disease_info.json'
+        
+        if not os.path.exists(disease_file):
+            print(f"⚠️ Warning: {disease_file} not found. Disease info will not be available.")
+            disease_info_database = {}
+            return False
+        
+        with open(disease_file, 'r', encoding='utf-8') as f:
+            disease_info_database = json.load(f)
+        
+        print(f"✅ Disease info database loaded: {len(disease_info_database)} diseases")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Error loading disease info database: {e}")
+        disease_info_database = {}
+        return False
+
+def get_medicine_recommendation(disease_name, confidence):
+    """
+    Ambil rekomendasi obat berdasarkan nama penyakit dan confidence level
+    
+    Args:
+        disease_name: Nama penyakit dalam bahasa Indonesia
+        confidence: Tingkat kepercayaan prediksi (0-1)
+    
+    Returns:
+        Dictionary berisi rekomendasi obat dan catatan
+    """
+    global medicine_database
+    
+    print(f"🔍 Getting medicine recommendation for: {disease_name} (confidence: {confidence:.3f})")
+    
+    # Default response jika database tidak tersedia
+    if medicine_database is None or len(medicine_database) == 0:
+        return {
+            "recommended_medicines": [],
+            "organic_alternatives": [],
+            "medicine_notes": "Database rekomendasi obat tidak tersedia. Silakan konsultasi dengan ahli pertanian.",
+            "category": "Unknown"
+        }
+    
+    # Cek apakah penyakit ada di database
+    if disease_name not in medicine_database:
+        print(f"⚠️ Disease '{disease_name}' not found in medicine database")
+        return {
+            "recommended_medicines": [],
+            "organic_alternatives": [],
+            "medicine_notes": f"Rekomendasi obat untuk '{disease_name}' belum tersedia. Silakan konsultasi dengan ahli pertanian atau toko pertanian terdekat.",
+            "category": "Unknown"
+        }
+    
+    disease_data = medicine_database[disease_name]
+    category = disease_data.get("category", "Unknown")
+    recommended_medicines = disease_data.get("recommended_medicines", [])
+    organic_alternatives = disease_data.get("organic_alternatives", [])
+    
+    print(f"📊 Found {len(recommended_medicines)} chemical medicines and {len(organic_alternatives)} organic alternatives")
+    
+    # Buat catatan berdasarkan confidence level dan kategori penyakit
+    medicine_notes = []
+    
+    # Catatan confidence
+    if confidence < 0.6:
+        medicine_notes.append("⚠️ PERINGATAN: Tingkat kepercayaan prediksi rendah. Sangat disarankan untuk konsultasi dengan ahli pertanian sebelum menggunakan obat apapun.")
+    elif confidence < 0.8:
+        medicine_notes.append("ℹ️ Tingkat kepercayaan prediksi sedang. Disarankan untuk memverifikasi diagnosa dengan ahli jika memungkinkan.")
+    else:
+        medicine_notes.append("✅ Tingkat kepercayaan prediksi tinggi. Rekomendasi obat di bawah ini dapat dipertimbangkan.")
+    
+    # Catatan khusus berdasarkan kategori
+    if category == "Virus":
+        medicine_notes.append("")
+        medicine_notes.append("🦠 PENTING - PENYAKIT VIRUS:")
+        medicine_notes.append("• Tidak ada obat yang dapat membunuh virus pada tanaman")
+        medicine_notes.append("• Obat yang direkomendasikan adalah untuk MENGENDALIKAN SERANGGA VEKTOR (pembawa virus)")
+        medicine_notes.append("• Tanaman yang terinfeksi berat HARUS SEGERA DIBUANG dan DIMUSNAHKAN untuk mencegah penyebaran")
+        medicine_notes.append("• Fokus pada PENCEGAHAN dengan mengendalikan populasi serangga vektor")
+        medicine_notes.append("• Isolasi tanaman yang terinfeksi dari tanaman sehat")
+    
+    elif category == "Bakteri":
+        medicine_notes.append("")
+        medicine_notes.append("🔬 CATATAN PENYAKIT BAKTERI:")
+        medicine_notes.append("• Gunakan bakterisida berbahan tembaga sebagai pilihan utama")
+        medicine_notes.append("• Hindari penyiraman dari atas yang dapat menyebarkan bakteri")
+        medicine_notes.append("• Sanitasi alat pertanian sangat penting (sterilisasi dengan alkohol atau api)")
+        medicine_notes.append("• Buang dan musnahkan bagian tanaman yang terinfeksi")
+    
+    elif category == "Jamur":
+        medicine_notes.append("")
+        medicine_notes.append("🍄 CATATAN PENYAKIT JAMUR:")
+        medicine_notes.append("• Lakukan penyemprotan fungisida secara merata, termasuk bagian bawah daun")
+        medicine_notes.append("• Rotasi bahan aktif fungisida untuk mencegah resistensi")
+        medicine_notes.append("• Kurangi kelembaban di sekitar tanaman")
+    
+    elif category == "Hama":
+        medicine_notes.append("")
+        medicine_notes.append("🐛 CATATAN PENGENDALIAN HAMA:")
+        medicine_notes.append("• Semprotkan insektisida/mitisida pada sore hari saat hama aktif")
+        medicine_notes.append("• Pastikan seluruh bagian tanaman tercover")
+        medicine_notes.append("• Gunakan perekat jika perlu")
+    
+    return {
+        "recommended_medicines": recommended_medicines,
+        "organic_alternatives": organic_alternatives,
+        "medicine_notes": "\n".join(medicine_notes),
+        "category": category
+    }
 
 def load_cnn_model():
     """Load CNN model dan metadata"""
@@ -241,162 +381,13 @@ def predict_disease_cnn(image_path):
         disease_name = disease_translations.get(predicted_class, predicted_class)
         print(f"🏥 Disease name (Indonesian): {disease_name}")
 
-        # Informasi lengkap untuk setiap penyakit
-        disease_info = {
-            "Bercak Bakteri": {
-                "description": "Penyakit bakteri yang menyebabkan bercak-bercak kecil berwarna coklat dengan halo kuning pada daun.",
-                "symptoms": ["Bercak kecil coklat dengan tepi kuning", "Daun menguning dan layu", "Buah dapat terinfeksi"],
-                "causes": ["Kelembaban tinggi", "Suhu hangat 24-30°C", "Percikan air hujan", "Alat pertanian terkontaminasi"],
-                "treatment": [
-                    "Semprotkan fungisida berbahan tembaga",
-                    "Perbaiki drainase untuk mengurangi kelembaban",
-                    "Buang dan musnahkan daun yang terinfeksi",
-                    "Hindari penyiraman dari atas",
-                    "Rotasi tanaman dengan tanaman non-solanaceae"
-                ],
-                "prevention": ["Jaga kebersihan kebun", "Hindari kelembaban berlebih", "Sterilisasi alat pertanian"],
-                "severity": "Sedang",
-                "urgency": "Segera tangani dalam 1-2 hari"
-            },
-            "Hawar Daun Awal": {
-                "description": "Penyakit jamur yang menyebabkan bercak coklat dengan pola lingkaran konsentris pada daun.",
-                "symptoms": ["Bercak coklat dengan pola lingkaran", "Daun menguning dan gugur", "Dapat menyerang buah"],
-                "causes": ["Kelembaban tinggi", "Suhu 24-29°C", "Daun yang lembab", "Sirkulasi udara buruk"],
-                "treatment": [
-                    "Aplikasi fungisida sistemik",
-                    "Buang daun yang terinfeksi",
-                    "Perbaiki sirkulasi udara",
-                    "Kurangi kelembaban dengan mulsa",
-                    "Penyiraman di pagi hari"
-                ],
-                "prevention": ["Jarak tanam yang cukup", "Pemangkasan untuk sirkulasi udara", "Hindari penyiraman malam"],
-                "severity": "Sedang-Tinggi",
-                "urgency": "Tangani dalam 1-2 hari"
-            },
-            "Hawar Daun Lanjut": {
-                "description": "Penyakit jamur serius yang dapat merusak seluruh tanaman dengan cepat.",
-                "symptoms": ["Bercak coklat kehitaman", "Daun layu dan mati", "Buah membusuk", "Pertumbuhan jamur putih"],
-                "causes": ["Kelembaban sangat tinggi", "Suhu dingin 15-20°C", "Hujan berkepanjangan", "Kondisi lembab"],
-                "treatment": [
-                    "Fungisida sistemik segera",
-                    "Buang semua bagian terinfeksi",
-                    "Perbaiki drainase",
-                    "Kurangi kelembaban drastis",
-                    "Isolasi tanaman terinfeksi"
-                ],
-                "prevention": ["Varietas tahan penyakit", "Drainase yang baik", "Hindari kelembaban berlebih"],
-                "severity": "Sangat Tinggi",
-                "urgency": "DARURAT - Tangani segera!"
-            },
-            "Jamur Daun": {
-                "description": "Jamur yang menyebabkan bercak kuning pada permukaan atas daun dan pertumbuhan jamur di bawah daun.",
-                "symptoms": ["Bercak kuning pada daun", "Jamur abu-abu di bawah daun", "Daun mengering dan gugur"],
-                "causes": ["Kelembaban tinggi", "Sirkulasi udara buruk", "Suhu hangat", "Kondisi lembab berkepanjangan"],
-                "treatment": [
-                    "Fungisida khusus jamur daun",
-                    "Perbaiki ventilasi",
-                    "Kurangi kelembaban",
-                    "Buang daun terinfeksi",
-                    "Penyiraman dari bawah"
-                ],
-                "prevention": ["Sirkulasi udara baik", "Jarak tanam cukup", "Hindari kelembaban berlebih"],
-                "severity": "Sedang",
-                "urgency": "Tangani dalam 2-3 hari"
-            },
-            "Bercak Daun Septoria": {
-                "description": "Penyakit jamur yang menyebabkan bercak kecil dengan titik hitam di tengah pada daun.",
-                "symptoms": ["Bercak kecil dengan titik hitam", "Daun menguning", "Gugur daun dari bawah ke atas"],
-                "causes": ["Kelembaban tinggi", "Percikan air", "Suhu hangat", "Daun yang lembab"],
-                "treatment": [
-                    "Fungisida preventif",
-                    "Buang daun bawah yang terinfeksi",
-                    "Mulsa untuk mencegah percikan",
-                    "Penyiraman dari bawah",
-                    "Perbaiki sirkulasi udara"
-                ],
-                "prevention": ["Mulsa yang baik", "Hindari penyiraman dari atas", "Jarak tanam cukup"],
-                "severity": "Sedang",
-                "urgency": "Tangani dalam 2-3 hari"
-            },
-            "Tungau Laba-laba": {
-                "description": "Hama tungau yang menyebabkan bercak kuning dan jaring halus pada daun.",
-                "symptoms": ["Bercak kuning kecil", "Jaring halus di daun", "Daun mengering", "Pertumbuhan terhambat"],
-                "causes": ["Cuaca kering", "Kelembaban rendah", "Suhu tinggi", "Kurang air"],
-                "treatment": [
-                    "Semprotkan air untuk menghilangkan tungau",
-                    "Mitisida jika serangan parah",
-                    "Tingkatkan kelembaban",
-                    "Predator alami seperti kepik",
-                    "Penyiraman teratur"
-                ],
-                "prevention": ["Jaga kelembaban", "Penyiraman teratur", "Monitoring rutin"],
-                "severity": "Sedang",
-                "urgency": "Tangani dalam 3-5 hari"
-            },
-            "Bercak Target": {
-                "description": "Penyakit jamur yang menyebabkan bercak dengan pola target atau lingkaran konsentris.",
-                "symptoms": ["Bercak dengan pola lingkaran", "Warna coklat dengan tepi gelap", "Daun menguning"],
-                "causes": ["Kelembaban tinggi", "Suhu hangat", "Luka pada tanaman", "Kondisi stress"],
-                "treatment": [
-                    "Fungisida sistemik",
-                    "Buang bagian terinfeksi",
-                    "Perbaiki kondisi tanaman",
-                    "Kurangi stress pada tanaman",
-                    "Perbaiki nutrisi"
-                ],
-                "prevention": ["Hindari luka pada tanaman", "Nutrisi seimbang", "Jaga kesehatan tanaman"],
-                "severity": "Sedang",
-                "urgency": "Tangani dalam 2-3 hari"
-            },
-            "Virus Keriting Daun Kuning": {
-                "description": "Virus yang menyebabkan daun mengkerut, menguning, dan pertumbuhan terhambat.",
-                "symptoms": ["Daun mengkerut dan menggulung", "Warna kuning", "Pertumbuhan kerdil", "Produksi buah menurun"],
-                "causes": ["Serangga vektor (kutu kebul)", "Tanaman terinfeksi", "Alat pertanian terkontaminasi"],
-                "treatment": [
-                    "Tidak ada obat langsung untuk virus",
-                    "Buang tanaman terinfeksi",
-                    "Kendalikan serangga vektor",
-                    "Isolasi tanaman sehat",
-                    "Gunakan varietas tahan virus"
-                ],
-                "prevention": ["Kendalikan kutu kebul", "Gunakan bibit sehat", "Isolasi tanaman baru"],
-                "severity": "Tinggi",
-                "urgency": "Segera isolasi dan buang tanaman"
-            },
-            "Virus Mozaik Tomat": {
-                "description": "Virus yang menyebabkan pola mozaik hijau terang dan gelap pada daun.",
-                "symptoms": ["Pola mozaik pada daun", "Daun keriting", "Pertumbuhan tidak normal", "Buah cacat"],
-                "causes": ["Kontak langsung", "Alat pertanian", "Serangga", "Tangan yang terkontaminasi"],
-                "treatment": [
-                    "Buang tanaman terinfeksi",
-                    "Sterilisasi alat pertanian",
-                    "Cuci tangan sebelum menyentuh tanaman",
-                    "Isolasi tanaman sehat",
-                    "Gunakan varietas tahan"
-                ],
-                "prevention": ["Sterilisasi alat", "Cuci tangan", "Gunakan bibit bersertifikat"],
-                "severity": "Tinggi",
-                "urgency": "Segera buang tanaman terinfeksi"
-            },
-            "Sehat": {
-                "description": "Tanaman dalam kondisi sehat tanpa tanda-tanda penyakit atau hama.",
-                "symptoms": ["Daun hijau segar", "Pertumbuhan normal", "Tidak ada bercak atau kerusakan"],
-                "causes": ["Perawatan yang baik", "Kondisi lingkungan optimal", "Nutrisi cukup"],
-                "treatment": [
-                    "Lanjutkan perawatan rutin",
-                    "Monitoring berkala",
-                    "Jaga kebersihan lingkungan",
-                    "Pemupukan sesuai jadwal",
-                    "Penyiraman teratur"
-                ],
-                "prevention": ["Perawatan preventif", "Monitoring rutin", "Sanitasi lingkungan"],
-                "severity": "Tidak ada",
-                "urgency": "Perawatan rutin"
-            }
-        }
+        # Use global disease info
+        global disease_info_database
+        if disease_info_database is None:
+             load_disease_info_database()
         
         # Ambil informasi lengkap penyakit
-        info = disease_info.get(disease_name, {})
+        info = disease_info_database.get(disease_name, {})
         description = info.get("description", "Informasi tidak tersedia untuk penyakit ini.")
         
         # Tentukan level kepercayaan
@@ -429,6 +420,9 @@ def predict_disease_cnn(image_path):
         if len(top_3_diseases) > 1 and top_3_diseases[1][1] > 0.1:
             recommendations.append(f"Kemungkinan alternatif: {top_3_diseases[1][0]} ({top_3_diseases[1][1]*100:.1f}%)")
         
+        # Get medicine recommendations
+        medicine_info = get_medicine_recommendation(disease_name, confidence)
+        
         return {
             "disease": disease_name,
             "confidence": float(confidence),
@@ -437,6 +431,7 @@ def predict_disease_cnn(image_path):
             "symptoms": info.get("symptoms", []),
             "causes": info.get("causes", []),
             "treatment": info.get("treatment", []),
+            "medication": info.get("medication", []),
             "prevention": info.get("prevention", []),
             "severity": info.get("severity", "Tidak diketahui"),
             "urgency": info.get("urgency", "Konsultasi dengan ahli"),
@@ -444,7 +439,12 @@ def predict_disease_cnn(image_path):
             "top_3_diseases": top_3_diseases,
             "recommendations": recommendations,
             "is_healthy": disease_name == "Sehat",
-            "model_type": "CNN (Deep Learning)"
+            "model_type": "CNN (Deep Learning)",
+            # New medicine recommendation fields
+            "recommended_medicines": medicine_info["recommended_medicines"],
+            "organic_alternatives": medicine_info["organic_alternatives"],
+            "medicine_notes": medicine_info["medicine_notes"],
+            "disease_category": medicine_info["category"]
         }
         
     except Exception as e:
@@ -539,71 +539,12 @@ def predict_disease_fallback(image_path):
         disease_name = disease_translations.get(predicted_class, predicted_class)
         print(f"🏥 Disease name (Indonesian): {disease_name}")
 
-        # Informasi lengkap untuk setiap penyakit (simplified version)
-        disease_info = {
-            "Bercak Bakteri": {
-                "description": "Penyakit bakteri yang menyebabkan bercak-bercak kecil berwarna coklat dengan halo kuning pada daun.",
-                "symptoms": ["Bercak kecil coklat dengan tepi kuning", "Daun menguning dan layu"],
-                "treatment": ["Semprot fungisida berbahan tembaga", "Buang daun yang terinfeksi"],
-                "severity": "Sedang"
-            },
-            "Hawar Daun Awal": {
-                "description": "Penyakit jamur yang menyebabkan bercak coklat dengan pola lingkaran konsentris.",
-                "symptoms": ["Bercak coklat dengan pola target", "Daun menguning dari bawah"],
-                "treatment": ["Fungisida sistemik", "Perbaiki drainase"],
-                "severity": "Sedang"
-            },
-            "Hawar Daun Lanjut": {
-                "description": "Penyakit jamur yang sangat merusak, menyebabkan bercak coklat kehitaman.",
-                "symptoms": ["Bercak coklat kehitaman", "Daun layu dengan cepat"],
-                "treatment": ["Fungisida khusus", "Isolasi tanaman"],
-                "severity": "Tinggi"
-            },
-            "Jamur Daun": {
-                "description": "Infeksi jamur yang menyebabkan lapisan putih kekuningan pada permukaan daun.",
-                "symptoms": ["Lapisan putih pada daun", "Daun keriting"],
-                "treatment": ["Fungisida", "Tingkatkan ventilasi"],
-                "severity": "Sedang"
-            },
-            "Bercak Daun Septoria": {
-                "description": "Penyakit jamur yang menyebabkan bercak kecil dengan titik hitam di tengah.",
-                "symptoms": ["Bercak kecil dengan titik hitam", "Daun menguning"],
-                "treatment": ["Fungisida", "Buang daun terinfeksi"],
-                "severity": "Sedang"
-            },
-            "Tungau Laba-laba": {
-                "description": "Serangan hama tungau yang menyebabkan bintik-bintik kuning pada daun.",
-                "symptoms": ["Bintik kuning kecil", "Jaring laba-laba halus"],
-                "treatment": ["Mitisida", "Semprot air"],
-                "severity": "Sedang"
-            },
-            "Bercak Target": {
-                "description": "Penyakit jamur yang menyebabkan bercak dengan pola target yang jelas.",
-                "symptoms": ["Bercak dengan pola lingkaran", "Daun berlubang"],
-                "treatment": ["Fungisida", "Sanitasi kebun"],
-                "severity": "Sedang"
-            },
-            "Virus Keriting Daun Kuning": {
-                "description": "Infeksi virus yang menyebabkan daun menguning dan keriting.",
-                "symptoms": ["Daun menguning", "Daun keriting ke atas"],
-                "treatment": ["Kontrol vektor", "Buang tanaman terinfeksi"],
-                "severity": "Tinggi"
-            },
-            "Virus Mozaik Tomat": {
-                "description": "Infeksi virus yang menyebabkan pola mozaik pada daun.",
-                "symptoms": ["Pola mozaik hijau-kuning", "Pertumbuhan terhambat"],
-                "treatment": ["Kontrol vektor", "Sanitasi"],
-                "severity": "Tinggi"
-            },
-            "Sehat": {
-                "description": "Tanaman dalam kondisi sehat tanpa tanda-tanda penyakit.",
-                "symptoms": ["Daun hijau segar", "Pertumbuhan normal"],
-                "treatment": ["Perawatan rutin", "Pemupukan teratur"],
-                "severity": "Tidak ada"
-            }
-        }
+        # Use global disease info
+        global disease_info_database
+        if disease_info_database is None:
+             load_disease_info_database()
         
-        info = disease_info.get(disease_name, {})
+        info = disease_info_database.get(disease_name, {})
         description = info.get("description", "Informasi tidak tersedia")
         
         # Confidence level
@@ -636,6 +577,9 @@ def predict_disease_fallback(image_path):
         if len(top_3_diseases) > 1 and top_3_diseases[1][1] > 0.1:
             recommendations.append(f"Kemungkinan alternatif: {top_3_diseases[1][0]} ({top_3_diseases[1][1]*100:.1f}%)")
         
+        # Get medicine recommendations
+        medicine_info = get_medicine_recommendation(disease_name, confidence)
+
         return {
             "disease": disease_name,
             "confidence": float(confidence),
@@ -651,7 +595,12 @@ def predict_disease_fallback(image_path):
             "top_3_diseases": top_3_diseases,
             "recommendations": recommendations,
             "is_healthy": disease_name == "Sehat",
-            "model_type": "Traditional ML (Fallback)"
+            "model_type": "Traditional ML (Fallback)",
+            # New medicine recommendation fields
+            "recommended_medicines": medicine_info["recommended_medicines"],
+            "organic_alternatives": medicine_info["organic_alternatives"],
+            "medicine_notes": medicine_info["medicine_notes"],
+            "disease_category": medicine_info["category"]
         }
         
     except Exception as e:
@@ -734,6 +683,8 @@ def predict_disease(image_path):
 
 # Load model saat aplikasi start
 print("🚀 Starting TomatoDoc AI with CNN support...")
+load_medicine_database()
+load_disease_info_database()
 cnn_available = load_cnn_model()
 
 if cnn_available:
