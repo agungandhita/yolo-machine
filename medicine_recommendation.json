@@ -12,21 +12,21 @@
         "availability": "Mudah didapat di toko pertanian"
       },
       {
-        "name": "Nordox 86 WG",
-        "type": "Bakterisida/Fungisida",
-        "active_ingredient": "Copper Oxide 86%",
-        "dosage": "1.5-2 gram per liter air",
-        "application": "Semprot pada pagi atau sore hari. Interval aplikasi 5-7 hari.",
-        "warning": "Dapat menyebabkan fitotoksisitas jika overdosis. Patuhi dosis anjuran.",
+        "name": "Mancozeb 80 WP",
+        "type": "Fungisida Kontak",
+        "active_ingredient": "Mancozeb 80%",
+        "dosage": "2-2.5 gram per liter air",
+        "application": "Semprot preventif setiap 7-10 hari. Efektif untuk mencegah penyebaran.",
+        "warning": "Dapat menyebabkan iritasi kulit dan mata. Gunakan masker dan sarung tangan. Masa tunggu panen 7 hari.",
         "availability": "Mudah didapat di toko pertanian"
       },
       {
-        "name": "Agrept 20 WP",
+        "name": "Kasugamycin 2% SL",
         "type": "Bakterisida",
-        "active_ingredient": "Streptomycin Sulfate 20%",
-        "dosage": "1-2 gram per liter air",
+        "active_ingredient": "Kasugamycin 2%",
+        "dosage": "2-3 ml per liter air",
         "application": "Semprot 2-3 kali dengan interval 5-7 hari. Mulai saat gejala awal terlihat.",
-        "warning": "Jangan gunakan berlebihan untuk menghindari resistensi. Hindari kontak dengan kulit.",
+        "warning": "Bakterisida spesifik. Jangan gunakan berlebihan untuk menghindari resistensi.",
         "availability": "Perlu toko pertanian khusus"
       }
     ],
@@ -47,7 +47,16 @@
     "category": "Jamur",
     "recommended_medicines": [
       {
-        "name": "Dithane M-45",
+        "name": "Chlorothalonil 75 WP",
+        "type": "Fungisida Kontak",
+        "active_ingredient": "Chlorothalonil 75%",
+        "dosage": "2 gram per liter air",
+        "application": "Semprot preventif setiap 7-10 hari. Efektif untuk pencegahan penyebaran.",
+        "warning": "Dapat menyebabkan iritasi. Hindari inhalasi. Masa tunggu panen 14 hari.",
+        "availability": "Mudah didapat di toko pertanian"
+      },
+      {
+        "name": "Mancozeb 80 WP",
         "type": "Fungisida Kontak",
         "active_ingredient": "Mancozeb 80%",
         "dosage": "2-2.5 gram per liter air",
@@ -56,21 +65,21 @@
         "availability": "Mudah didapat di toko pertanian"
       },
       {
-        "name": "Score 250 EC",
+        "name": "Azoxystrobin 25 SC",
+        "type": "Fungisida Sistemik",
+        "active_ingredient": "Azoxystrobin 25%",
+        "dosage": "0.5-1 ml per liter air",
+        "application": "Aplikasi saat gejala awal. Interval 10-14 hari. Maksimal 3 aplikasi per musim.",
+        "warning": "Rotasi dengan fungisida lain untuk mencegah resistensi. Masa tunggu panen 21 hari.",
+        "availability": "Perlu toko pertanian khusus"
+      },
+      {
+        "name": "Difenoconazole 25 EC",
         "type": "Fungisida Sistemik",
         "active_ingredient": "Difenoconazole 25%",
         "dosage": "0.5 ml per liter air",
         "application": "Aplikasi saat gejala awal muncul. Interval 10-14 hari. Maksimal 3 kali per musim.",
         "warning": "Rotasi dengan fungisida lain untuk mencegah resistensi. Masa tunggu panen 14 hari.",
-        "availability": "Mudah didapat di toko pertanian"
-      },
-      {
-        "name": "Antracol 70 WP",
-        "type": "Fungisida Kontak",
-        "active_ingredient": "Propineb 70%",
-        "dosage": "2-3 gram per liter air",
-        "application": "Semprot merata pada tajuk tanaman. Interval 7 hari.",
-        "warning": "Hindari pencampuran dengan pestisida alkalin. Masa tunggu panen 7 hari.",
         "availability": "Mudah didapat di toko pertanian"
       }
     ],
@@ -100,18 +109,18 @@
         "availability": "Perlu toko pertanian khusus"
       },
       {
-        "name": "Infinito 687.5 SC",
-        "type": "Fungisida Sistemik",
-        "active_ingredient": "Fluopicolide 62.5 g/L + Propamocarb HCl 625 g/L",
-        "dosage": "1.6 ml per liter air",
-        "application": "Aplikasi preventif atau saat gejala sangat awal. Interval 7 hari. Maksimal 4 aplikasi per musim.",
-        "warning": "Harga relatif mahal. Efektif untuk pencegahan. Masa tunggu 14 hari.",
-        "availability": "Perlu toko pertanian khusus"
+        "name": "Chlorothalonil 75 WP",
+        "type": "Fungisida Kontak",
+        "active_ingredient": "Chlorothalonil 75%",
+        "dosage": "2-2.5 gram per liter air",
+        "application": "Aplikasi preventif atau kombinasi dengan sistemik. Interval 5-7 hari.",
+        "warning": "Efektif untuk pencegahan dan menghambat penyebaran. Masa tunggu 14 hari.",
+        "availability": "Mudah didapat di toko pertanian"
       },
       {
-        "name": "Acrobat MZ 69 WP",
+        "name": "Cymoxanil 8% + Mancozeb 64%",
         "type": "Fungisida Sistemik + Kontak",
-        "active_ingredient": "Dimethomorph 9% + Mancozeb 60%",
+        "active_ingredient": "Cymoxanil 8% + Mancozeb 64%",
         "dosage": "2.5 gram per liter air",
         "application": "Aplikasi preventif sebelum hujan atau saat kelembaban tinggi. Interval 5-7 hari.",
         "warning": "Tidak efektif setelah infeksi parah. Gunakan segera saat gejala awal. APD wajib.",
@@ -135,16 +144,7 @@
     "category": "Jamur",
     "recommended_medicines": [
       {
-        "name": "Topsin M 70 WP",
-        "type": "Fungisida Sistemik",
-        "active_ingredient": "Thiophanate Methyl 70%",
-        "dosage": "1-1.5 gram per liter air",
-        "application": "Semprot saat gejala awal. Interval 7-10 hari. Rotasi dengan fungisida kontak.",
-        "warning": "Potensi resistensi tinggi jika digunakan terus menerus. Wajib rotasi fungisida.",
-        "availability": "Mudah didapat di toko pertanian"
-      },
-      {
-        "name": "Daconil 75 WP",
+        "name": "Chlorothalonil 75 WP",
         "type": "Fungisida Kontak",
         "active_ingredient": "Chlorothalonil 75%",
         "dosage": "2 gram per liter air",
@@ -153,12 +153,30 @@
         "availability": "Mudah didapat di toko pertanian"
       },
       {
-        "name": "Amistartop 325 SC",
+        "name": "Mancozeb 80 WP",
+        "type": "Fungisida Kontak",
+        "active_ingredient": "Mancozeb 80%",
+        "dosage": "2-2.5 gram per liter air",
+        "application": "Semprot preventif setiap 7-10 hari. Efektif untuk pencegahan.",
+        "warning": "Gunakan masker dan sarung tangan. Masa tunggu panen 7 hari.",
+        "availability": "Mudah didapat di toko pertanian"
+      },
+      {
+        "name": "Tembaga Hidroksida 77 WP",
+        "type": "Fungisida/Bakterisida",
+        "active_ingredient": "Copper Hydroxide 77%",
+        "dosage": "2-3 gram per liter air",
+        "application": "Semprot pada pagi atau sore hari. Interval 7-10 hari.",
+        "warning": "Hindari aplikasi saat suhu tinggi. Dapat menyebabkan fitotoksisitas jika overdosis.",
+        "availability": "Mudah didapat di toko pertanian"
+      },
+      {
+        "name": "Benomyl 50 WP",
         "type": "Fungisida Sistemik",
-        "active_ingredient": "Azoxystrobin 20% + Difenoconazole 12.5%",
-        "dosage": "0.5-1 ml per liter air",
-        "application": "Aplikasi saat gejala muncul. Interval 10-14 hari. Maksimal 3 aplikasi.",
-        "warning": "Harga premium. Sangat efektif. Masa tunggu 21 hari. Rotasi wajib.",
+        "active_ingredient": "Benomyl 50%",
+        "dosage": "1 gram per liter air",
+        "application": "Aplikasi saat gejala muncul. Interval 10-14 hari.",
+        "warning": "Rotasi dengan fungisida lain untuk mencegah resistensi. Masa tunggu 21 hari.",
         "availability": "Perlu toko pertanian khusus"
       }
     ],
@@ -179,7 +197,16 @@
     "category": "Jamur",
     "recommended_medicines": [
       {
-        "name": "Dithane M-45",
+        "name": "Chlorothalonil 75 WP",
+        "type": "Fungisida Kontak",
+        "active_ingredient": "Chlorothalonil 75%",
+        "dosage": "2 gram per liter air",
+        "application": "Aplikasi preventif setiap 7-10 hari. Mulai sebelum gejala muncul.",
+        "warning": "Efektif sebagai preventif. Kurang efektif setelah infeksi berat.",
+        "availability": "Mudah didapat di toko pertanian"
+      },
+      {
+        "name": "Mancozeb 80 WP",
         "type": "Fungisida Kontak",
         "active_ingredient": "Mancozeb 80%",
         "dosage": "2-2.5 gram per liter air",
@@ -188,22 +215,13 @@
         "availability": "Mudah didapat di toko pertanian"
       },
       {
-        "name": "Merpati 560 SC",
-        "type": "Fungisida Sistemik",
-        "active_ingredient": "Chlorothalonil 50% + Carbendazim 10%",
-        "dosage": "2 ml per liter air",
-        "application": "Semprot saat gejala awal. Interval 7-10 hari. Kombinasi sistemik dan kontak.",
-        "warning": "Masa tunggu panen 14 hari. Gunakan APD.",
+        "name": "Fungisida Tembaga",
+        "type": "Fungisida/Bakterisida",
+        "active_ingredient": "Copper Oxychloride 50% atau Copper Hydroxide 77%",
+        "dosage": "2-3 gram per liter air",
+        "application": "Semprot preventif setiap 7-10 hari atau setelah hujan.",
+        "warning": "Hindari aplikasi saat suhu tinggi. Masa tunggu 7 hari.",
         "availability": "Mudah didapat di toko pertanian"
-      },
-      {
-        "name": "Filia 525 SE",
-        "type": "Fungisida Sistemik",
-        "active_ingredient": "Pyraclostrobin 13.3% + Boscalid 26.7%",
-        "dosage": "0.75-1 ml per liter air",
-        "application": "Aplikasi preventif atau kuratif awal. Interval 10-14 hari.",
-        "warning": "Harga tinggi. Efektivitas sangat baik. Rotasi wajib untuk mencegah resistensi.",
-        "availability": "Perlu toko pertanian khusus"
       }
     ],
     "organic_alternatives": [
@@ -223,31 +241,40 @@
     "category": "Hama",
     "recommended_medicines": [
       {
-        "name": "Omite 57 EC",
-        "type": "Mitisida/Akarisida",
-        "active_ingredient": "Propargite 57%",
-        "dosage": "1-1.5 ml per liter air",
-        "application": "Semprot merata terutama bagian bawah daun. Interval 7 hari. Minimal 2 aplikasi.",
-        "warning": "Khusus untuk tungau. Tidak membunuh serangga lain. Masa tunggu 14 hari.",
-        "availability": "Perlu toko pertanian khusus"
-      },
-      {
-        "name": "Sanmite 20 WP",
-        "type": "Mitisida",
-        "active_ingredient": "Pyridaben 20%",
-        "dosage": "0.5-1 gram per liter air",
-        "application": "Aplikasi saat populasi tungau terdeteksi. Efektif untuk semua stadia. Interval 10-14 hari.",
-        "warning": "Harga relatif mahal. Sangat efektif. Masa tunggu 7 hari.",
-        "availability": "Perlu toko pertanian khusus"
-      },
-      {
-        "name": "Vertimec 18 EC",
+        "name": "Abamectin 1.8 EC",
         "type": "Insektisida/Mitisida",
         "active_ingredient": "Abamectin 1.8%",
         "dosage": "0.5 ml per liter air",
         "application": "Semprot sore hari (fotosensitif). Interval 7-10 hari. Rotasi dengan mitisida lain.",
         "warning": "Racun kelas II. APD wajib. Hindari sinar matahari langsung saat aplikasi.",
         "availability": "Mudah didapat di toko pertanian"
+      },
+      {
+        "name": "Sulfur (Belerang) 80 WP",
+        "type": "Mitisida/Fungisida",
+        "active_ingredient": "Sulfur 80%",
+        "dosage": "2-3 gram per liter air",
+        "application": "Semprot merata terutama bawah daun. Interval 7-10 hari.",
+        "warning": "Hindari aplikasi saat suhu > 32°C karena dapat menyebabkan fitotoksisitas.",
+        "availability": "Mudah didapat di toko pertanian"
+      },
+      {
+        "name": "Minyak Hortikultura atau Neem Oil",
+        "type": "Insektisida Botani",
+        "active_ingredient": "Petroleum Oil atau Azadirachtin",
+        "dosage": "10-15 ml per liter air",
+        "application": "Semprot merata terutama bagian bawah daun. Aplikasi sore hari. Interval 5-7 hari.",
+        "warning": "Relatif aman. Dapat dikombinasikan dengan metode lain.",
+        "availability": "Mudah didapat di toko pertanian"
+      },
+      {
+        "name": "Pyridaben 20 WP",
+        "type": "Mitisida",
+        "active_ingredient": "Pyridaben 20%",
+        "dosage": "0.5-1 gram per liter air",
+        "application": "Aplikasi saat populasi tungau terdeteksi. Efektif untuk semua stadia. Interval 10-14 hari.",
+        "warning": "Harga relatif mahal. Sangat efektif. Masa tunggu 7 hari.",
+        "availability": "Perlu toko pertanian khusus"
       }
     ],
     "organic_alternatives": [
@@ -272,30 +299,39 @@
     "category": "Jamur",
     "recommended_medicines": [
       {
-        "name": "Antracol 70 WP",
-        "type": "Fungisida Kontak",
-        "active_ingredient": "Propineb 70%",
-        "dosage": "2-3 gram per liter air",
-        "application": "Semprot preventif atau saat gejala awal. Interval 7-10 hari.",
-        "warning": "Masa tunggu panen 7 hari. Efektif untuk pencegahan.",
-        "availability": "Mudah didapat di toko pertanian"
-      },
-      {
-        "name": "Nativo 75 WG",
+        "name": "Azoxystrobin 25 SC",
         "type": "Fungisida Sistemik",
-        "active_ingredient": "Tebuconazole 50% + Trifloxystrobin 25%",
-        "dosage": "0.5-0.75 gram per liter air",
+        "active_ingredient": "Azoxystrobin 25%",
+        "dosage": "0.5-0.75 ml per liter air",
         "application": "Aplikasi saat gejala muncul. Interval 10-14 hari. Maksimal 3 aplikasi per musim.",
         "warning": "Harga premium. Efektivitas tinggi. Rotasi wajib. Masa tunggu 21 hari.",
         "availability": "Perlu toko pertanian khusus"
       },
       {
-        "name": "Bion M 1/48 WP",
+        "name": "Chlorothalonil 75 WP",
         "type": "Fungisida Kontak",
-        "active_ingredient": "Mancozeb 64% + Metalaxyl 4%",
+        "active_ingredient": "Chlorothalonil 75%",
         "dosage": "2 gram per liter air",
+        "application": "Semprot preventif atau saat gejala awal. Interval 7-10 hari.",
+        "warning": "Efektif untuk pencegahan. Masa tunggu 14 hari.",
+        "availability": "Mudah didapat di toko pertanian"
+      },
+      {
+        "name": "Mancozeb 80 WP",
+        "type": "Fungisida Kontak",
+        "active_ingredient": "Mancozeb 80%",
+        "dosage": "2-2.5 gram per liter air",
         "application": "Semprot preventif setiap 7 hari. Kombinasi sistemik dan kontak.",
-        "warning": "Masa tunggu 14 hari. Patuhi interval aplikasi.",
+        "warning": "Masa tunggu 7 hari. Patuhi interval aplikasi.",
+        "availability": "Mudah didapat di toko pertanian"
+      },
+      {
+        "name": "Fungisida Tembaga",
+        "type": "Fungisida/Bakterisida",
+        "active_ingredient": "Copper Hydroxide atau Copper Oxychloride",
+        "dosage": "2-3 gram per liter air",
+        "application": "Semprot preventif setiap 7-10 hari.",
+        "warning": "Hindari aplikasi saat suhu tinggi.",
         "availability": "Mudah didapat di toko pertanian"
       }
     ],
@@ -316,7 +352,7 @@
     "category": "Virus",
     "recommended_medicines": [
       {
-        "name": "Confidor 200 SL",
+        "name": "Imidacloprid 20% SL",
         "type": "Insektisida Sistemik (Kontrol Vektor)",
         "active_ingredient": "Imidacloprid 20%",
         "dosage": "0.25-0.5 ml per liter air",
@@ -325,22 +361,22 @@
         "availability": "Mudah didapat di toko pertanian"
       },
       {
-        "name": "Pegasus 500 SP",
+        "name": "Abamectin 1.8% EC",
         "type": "Insektisida (Kontrol Vektor)",
-        "active_ingredient": "Diafenthiuron 50%",
-        "dosage": "0.5-1 gram per liter air",
-        "application": "Khusus untuk kutu kebul. Interval 7 hari. Tambahkan perekat.",
+        "active_ingredient": "Abamectin 1.8%",
+        "dosage": "0.5 ml per liter air",
+        "application": "Khusus untuk kutu kebul. Aplikasi sore hari. Interval 7-10 hari.",
         "warning": "PENTING: Tanaman terinfeksi virus HARUS DIBUANG. Obat hanya untuk mencegah penyebaran.",
         "availability": "Mudah didapat di toko pertanian"
       },
       {
-        "name": "Marshal 200 SC",
-        "type": "Insektisida Sistemik (Kontrol Vektor)",
-        "active_ingredient": "Carbosulfan 20%",
-        "dosage": "1-1.5 ml per liter air",
-        "application": "Aplikasi soil drench atau semprot. Efektif untuk kutu kebul. Interval 10-14 hari.",
-        "warning": "Racun kelas II. APD wajib. Masa tunggu 14 hari.",
-        "availability": "Perlu toko pertanian khusus"
+        "name": "Neem Oil (Minyak Nimba)",
+        "type": "Insektisida Botani (Pengusir Vektor)",
+        "active_ingredient": "Azadirachtin",
+        "dosage": "10-15 ml per liter air",
+        "application": "Semprot pada sore hari. Interval 5-7 hari. Efektif mengusir kutu kebul.",
+        "warning": "Alternatif organik yang lebih aman. Perlu aplikasi lebih sering.",
+        "availability": "Mudah didapat di toko pertanian"
       }
     ],
     "organic_alternatives": [
@@ -365,17 +401,17 @@
     "category": "Virus",
     "recommended_medicines": [
       {
-        "name": "Movento 100 SC",
-        "type": "Insektisida Sistemik (Kontrol Vektor)",
-        "active_ingredient": "Spirotetramat 10%",
-        "dosage": "0.5 ml per liter air",
-        "application": "Kontrol serangga vektor (kutu daun, thrips). Aplikasi preventif. Interval 10-14 hari.",
+        "name": "Disinfektan untuk Alat (Natrium Hipoklorit)",
+        "type": "Disinfektan",
+        "active_ingredient": "Natrium Hipoklorit 5.25%",
+        "dosage": "Encerkan 1:10 dengan air",
+        "application": "Sterilisasi alat pemangkas dan pertanian sebelum dan sesudah digunakan. Rendam 5-10 menit.",
         "warning": "PENTING: Tidak ada obat untuk virus. Fokus pada pencegahan dan kontrol vektor. Tanaman terinfeksi BUANG.",
-        "availability": "Perlu toko pertanian khusus"
+        "availability": "Mudah didapat (pemutih pakaian)"
       },
       {
-        "name": "Actara 25 WG",
-        "type": "Insektisida Sistemik (Kontrol Vektor)",
+        "name": "Thiamethoxam 25% WG (Kontrol Vektor)",
+        "type": "Insektisida Sistemik",
         "active_ingredient": "Thiamethoxam 25%",
         "dosage": "0.2-0.3 gram per liter air",
         "application": "Efektif untuk kutu daun dan thrips. Aplikasi soil drench atau semprot. Interval 7-10 hari.",
