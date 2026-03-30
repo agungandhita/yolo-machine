@@ -13,6 +13,9 @@ from tensorflow import keras
 from datetime import datetime
 import traceback
 
+# Import YOLO predictor
+from yolo_predictor import predict_disease_yolo, load_yolo_model, is_model_loaded as is_yolo_loaded
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
@@ -23,6 +26,7 @@ class_names = None
 model_metadata = None
 medicine_database = None
 disease_info_database = None
+yolo_available = False  # YOLO model availability flag
 
 def load_medicine_database():
     """Load database rekomendasi obat dari JSON file"""
@@ -458,11 +462,11 @@ def predict_disease_fallback(image_path):
     """
     Prediksi penyakit menggunakan traditional ML model sebagai fallback dengan debug logging
     """
-    global traditional_model, class_names
+    global fallback_model, class_names
     
     print(f"🔄 Starting traditional model prediction for: {image_path}")
     
-    if traditional_model is None or class_names is None:
+    if fallback_model is None or class_names is None:
         print("❌ Traditional model or class names not loaded")
         return {"error": "Traditional model not loaded"}
     
@@ -559,7 +563,7 @@ def predict_disease_fallback(image_path):
         
         # Translate all probabilities to Indonesian
         translated_probabilities = {}
-        for i, prob in enumerate(probabilities):
+        for i, prob in enumerate(prediction_proba):
             original_name = class_names[i]
             translated_name = disease_translations.get(original_name, original_name)
             translated_probabilities[translated_name] = float(prob)
@@ -613,8 +617,10 @@ def predict_disease_fallback(image_path):
 def predict_disease(image_path):
     """
     Fungsi utama untuk prediksi penyakit dengan debug logging
-    Mencoba CNN terlebih dahulu, jika gagal menggunakan traditional model
+    Mencoba YOLO terlebih dahulu, jika gagal mencoba CNN, lalu traditional model
     """
+    global yolo_available
+    
     print(f"\n{'='*60}")
     print(f"🚀 STARTING DISEASE PREDICTION")
     print(f"📁 Image path: {image_path}")
@@ -626,8 +632,45 @@ def predict_disease(image_path):
         print(f"❌ {error_msg}")
         return {"error": error_msg}
     
-    # Coba CNN model terlebih dahulu
-    print(f"\n🧠 ATTEMPTING CNN PREDICTION...")
+    # Coba YOLO model terlebih dahulu (PRIMARY)
+    print(f"\n🎯 ATTEMPTING YOLO PREDICTION...")
+    print(f"YOLO Model available: {yolo_available}")
+    
+    if yolo_available:
+        try:
+            print("✅ YOLO model available, proceeding with YOLO prediction...")
+            result = predict_disease_yolo(image_path)
+            
+            if "error" not in result:
+                print(f"✅ YOLO prediction successful!")
+                print(f"🎯 Result: {result.get('disease', 'Unknown')} ({result.get('confidence', 0):.3f})")
+                
+                # Get medicine and disease info using disease_key
+                disease_key = result.get('disease_key', result.get('disease'))
+                medicine_info = get_medicine_recommendation(disease_key, result.get('confidence', 0))
+                disease_info = get_disease_info(disease_key)
+                
+                # Merge with result
+                result['disease_info'] = disease_info.get('disease_info', {}) if disease_info else {}
+                result['recommended_medicines'] = medicine_info.get('recommended_medicines', [])
+                result['organic_alternatives'] = medicine_info.get('organic_alternatives', [])
+                result['medicine_notes'] = medicine_info.get('medicine_notes', '')
+                result['disease_category'] = medicine_info.get('category', '')
+                
+                print(f"{'='*60}\n")
+                return result
+            else:
+                print(f"❌ YOLO prediction failed: {result.get('error')}")
+                
+        except Exception as e:
+            print(f"❌ YOLO prediction exception: {e}")
+            import traceback
+            print(f"📋 Traceback: {traceback.format_exc()}")
+    else:
+        print("⚠️ YOLO model not available")
+    
+    # Fallback: Coba CNN model
+    print(f"\n🧠 ATTEMPTING CNN PREDICTION (fallback)...")
     print(f"CNN Model loaded: {cnn_model is not None}")
     print(f"CNN Class names loaded: {class_names is not None}")
     
@@ -653,9 +696,9 @@ def predict_disease(image_path):
     
     # Fallback ke traditional model
     print(f"\n🔄 FALLING BACK TO TRADITIONAL MODEL...")
-    print(f"Traditional Model loaded: {traditional_model is not None}")
+    print(f"Traditional Model loaded: {fallback_model is not None}")
     
-    if traditional_model is not None and class_names is not None:
+    if fallback_model is not None and class_names is not None:
         try:
             print("✅ Traditional model available, proceeding with traditional prediction...")
             result = predict_disease_fallback(image_path)
@@ -682,15 +725,23 @@ def predict_disease(image_path):
     return {"error": error_msg}
 
 # Load model saat aplikasi start
-print("🚀 Starting TomatoDoc AI with CNN support...")
+print("🚀 Starting TomatoDoc AI with YOLO + CNN support...")
 load_medicine_database()
 load_disease_info_database()
-cnn_available = load_cnn_model()
 
-if cnn_available:
-    print("✅ CNN model loaded successfully!")
+# Try loading YOLO model first (primary)
+yolo_available = load_yolo_model()
+if yolo_available:
+    print("✅ YOLO model loaded as PRIMARY classifier!")
 else:
-    print("⚠️ Using fallback traditional ML model")
+    print("⚠️ YOLO model not available")
+
+# Load CNN as fallback
+cnn_available = load_cnn_model()
+if cnn_available:
+    print("✅ CNN model loaded as FALLBACK classifier!")
+else:
+    print("⚠️ CNN model not available - using traditional ML fallback")
 
 @app.route('/')
 def index():
