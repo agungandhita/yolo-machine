@@ -11,33 +11,22 @@ import os
 yolo_model = None
 yolo_class_names = None
 
-# Mapping from YOLO training class names to disease_info.json keys
+# Mapping from YOLO training class names to exactly match disease_info.json keys
 DISEASE_KEY_MAPPING = {
-    "Tomato_healthy": "Healthy",
-    "Tomato_Bacterial_spot": "Bacterial Spot",
-    "Tomato_Early_blight": "Early Blight",
-    "Tomato_Late_blight": "Late Blight", 
-    "Tomato_Leaf_Mold": "Leaf Mold",
-    "Tomato_Septoria_leaf_spot": "Septoria Leaf Spot",
-    "Tomato__Target_Spot": "Target Spot",
-    "Tomato__Tomato_mosaic_virus": "Mosaic Virus",
-    "Tomato__Tomato_YellowLeaf__Curl_Virus": "Yellow Leaf Curl Virus",
-    "Tomato_Spider_mites_Two_spotted_spider_mite": "Spider Mites",
+    "Tomato_healthy": "Sehat",
+    "Tomato_Bacterial_spot": "Bercak Bakteri",
+    "Tomato_Early_blight": "Hawar Daun Awal",
+    "Tomato_Late_blight": "Hawar Daun Lanjut", 
+    "Tomato_Leaf_Mold": "Jamur Daun",
+    "Tomato_Septoria_leaf_spot": "Bercak Daun Septoria",
+    "Tomato__Target_Spot": "Bercak Target",
+    "Tomato__Tomato_mosaic_virus": "Virus Mozaik Tomat",
+    "Tomato__Tomato_YellowLeaf__Curl_Virus": "Virus Keriting Daun Kuning",
+    "Tomato_Spider_mites_Two_spotted_spider_mite": "Tungau Laba-laba",
 }
 
-# Indonesian translations
-DISEASE_TRANSLATIONS = {
-    "Healthy": "Sehat",
-    "Bacterial Spot": "Bercak Bakteri",
-    "Early Blight": "Hawar Daun Dini",
-    "Late Blight": "Hawar Daun Akhir",
-    "Leaf Mold": "Jamur Daun",
-    "Septoria Leaf Spot": "Bercak Daun Septoria",
-    "Target Spot": "Bercak Target",
-    "Mosaic Virus": "Virus Mosaik",
-    "Yellow Leaf Curl Virus": "Virus Keriting Kuning",
-    "Spider Mites": "Tungau Laba-laba",
-}
+# Indonesian translations (identity mapping since keys are already translated)
+DISEASE_TRANSLATIONS = {v: v for v in DISEASE_KEY_MAPPING.values()}
 
 
 def load_yolo_model():

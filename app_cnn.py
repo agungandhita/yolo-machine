@@ -27,6 +27,7 @@ model_metadata = None
 medicine_database = None
 disease_info_database = None
 yolo_available = False  # YOLO model availability flag
+fallback_model = None   # Fallback traditional ML model
 
 def load_medicine_database():
     """Load database rekomendasi obat dari JSON file"""
@@ -470,7 +471,7 @@ def predict_disease_fallback(image_path):
         print("❌ Traditional model or class names not loaded")
         return {"error": "Traditional model not loaded"}
     
-    print(f"✅ Traditional model loaded: {type(traditional_model)}")
+    print(f"✅ Traditional model loaded: {type(fallback_model)}")
     print(f"✅ Class names: {len(class_names)} classes")
     
     try:
@@ -486,7 +487,7 @@ def predict_disease_fallback(image_path):
         
         # Prediksi menggunakan traditional model
         print("🔮 Making prediction with traditional model...")
-        prediction_proba = traditional_model.predict_proba([features])[0]
+        prediction_proba = fallback_model.predict_proba([features])[0]
         print(f"📊 Prediction probabilities shape: {prediction_proba.shape}")
         print(f"📊 Prediction probabilities: {prediction_proba}")
         print(f"📊 Probabilities sum: {np.sum(prediction_proba):.6f}")
@@ -614,12 +615,52 @@ def predict_disease_fallback(image_path):
         print(f"📋 Error details: {error_details}")
         return {"error": f"Fallback prediction failed: {str(e)}", "details": error_details}
 
+def is_leaf_image(image_path):
+    """
+    Validasi out-of-distribution: mengecek apakah gambar dominan memiliki
+    warna hijau/kuning/coklat (khas daun) menggunakan OpenCV HSV.
+    """
+    try:
+        img = cv2.imread(image_path)
+        if img is None:
+            return False
+        
+        # Resize untuk mempercepat komputasi
+        img = cv2.resize(img, (224, 224))
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        
+        # Range warna hijau (daun sehat)
+        lower_green = np.array([25, 40, 40])
+        upper_green = np.array([85, 255, 255])
+        
+        # Range warna kuning/coklat/kering (daun berpenyakit)
+        lower_brown = np.array([10, 30, 30])
+        upper_brown = np.array([25, 255, 255])
+        
+        mask_green = cv2.inRange(hsv, lower_green, upper_green)
+        mask_brown = cv2.inRange(hsv, lower_brown, upper_brown)
+        
+        mask_combined = cv2.bitwise_or(mask_green, mask_brown)
+        
+        # Hitung rasio piksel daun
+        leaf_pixels = cv2.countNonZero(mask_combined)
+        total_pixels = img.shape[0] * img.shape[1]
+        ratio = leaf_pixels / total_pixels
+        
+        print(f"🌿 Leaf pixel ratio: {ratio:.3f}")
+        return ratio > 0.05  # Minimal 5% warna daun
+        
+    except Exception as e:
+        print(f"❌ Error in leaf detection: {e}")
+        return True # Fallback true if error
+
 def predict_disease(image_path):
     """
     Fungsi utama untuk prediksi penyakit dengan debug logging
     Mencoba YOLO terlebih dahulu, jika gagal mencoba CNN, lalu traditional model
     """
     global yolo_available
+    global disease_info_database
     
     print(f"\n{'='*60}")
     print(f"🚀 STARTING DISEASE PREDICTION")
@@ -632,7 +673,56 @@ def predict_disease(image_path):
         print(f"❌ {error_msg}")
         return {"error": error_msg}
     
-    # Coba YOLO model terlebih dahulu (PRIMARY)
+    # Coba CNN model terlebih dahulu (PRIMARY karena akurasinya mungkin lebih baik)
+    print(f"\n🎯 ATTEMPTING CNN PREDICTION...")
+    print(f"CNN Model loaded: {cnn_model is not None}")
+    
+    if cnn_model is not None and class_names is not None:
+        try:
+            print("✅ CNN model available, proceeding with CNN prediction...")
+            result = predict_disease_cnn(image_path)
+            
+            if "error" not in result:
+                print(f"✅ CNN prediction successful!")
+                print(f"🎯 Result: {result.get('disease', 'Unknown')} ({result.get('confidence', 0):.3f})")
+                
+                # Get medicine and disease info using disease_key
+                disease_key = result.get('disease_key', result.get('disease'))
+                medicine_info = get_medicine_recommendation(disease_key, result.get('confidence', 0))
+                
+                if disease_info_database is None:
+                    load_disease_info_database()
+                
+                info = disease_info_database.get(disease_key, {})
+                
+                # Merge with result
+                result['description'] = info.get("description", "Informasi tidak tersedia.")
+                result['symptoms'] = info.get("symptoms", [])
+                result['causes'] = info.get("causes", [])
+                result['treatment'] = info.get("treatment", [])
+                result['prevention'] = info.get("prevention", [])
+                result['severity'] = info.get("severity", "Tidak diketahui")
+                result['urgency'] = info.get("urgency", "Konsultasi dengan ahli")
+                result['is_healthy'] = (disease_key == "Sehat")
+                
+                result['recommended_medicines'] = medicine_info.get('recommended_medicines', [])
+                result['organic_alternatives'] = medicine_info.get('organic_alternatives', [])
+                result['medicine_notes'] = medicine_info.get('medicine_notes', '')
+                result['disease_category'] = medicine_info.get('category', '')
+                
+                print(f"{'='*60}\n")
+                return result
+            else:
+                print(f"❌ CNN prediction failed: {result['error']}")
+                
+        except Exception as e:
+            print(f"❌ CNN prediction exception: {e}")
+            import traceback
+            print(f"📋 Traceback: {traceback.format_exc()}")
+    else:
+        print("❌ CNN model or class names not available")
+    
+    # Coba YOLO model (FALLBACK 1)
     print(f"\n🎯 ATTEMPTING YOLO PREDICTION...")
     print(f"YOLO Model available: {yolo_available}")
     
@@ -648,10 +738,22 @@ def predict_disease(image_path):
                 # Get medicine and disease info using disease_key
                 disease_key = result.get('disease_key', result.get('disease'))
                 medicine_info = get_medicine_recommendation(disease_key, result.get('confidence', 0))
-                disease_info = get_disease_info(disease_key)
+                
+                if disease_info_database is None:
+                    load_disease_info_database()
+                
+                info = disease_info_database.get(disease_key, {})
                 
                 # Merge with result
-                result['disease_info'] = disease_info.get('disease_info', {}) if disease_info else {}
+                result['description'] = info.get("description", "Informasi tidak tersedia.")
+                result['symptoms'] = info.get("symptoms", [])
+                result['causes'] = info.get("causes", [])
+                result['treatment'] = info.get("treatment", [])
+                result['prevention'] = info.get("prevention", [])
+                result['severity'] = info.get("severity", "Tidak diketahui")
+                result['urgency'] = info.get("urgency", "Konsultasi dengan ahli")
+                result['is_healthy'] = (disease_key == "Sehat")
+                
                 result['recommended_medicines'] = medicine_info.get('recommended_medicines', [])
                 result['organic_alternatives'] = medicine_info.get('organic_alternatives', [])
                 result['medicine_notes'] = medicine_info.get('medicine_notes', '')
@@ -669,29 +771,6 @@ def predict_disease(image_path):
     else:
         print("⚠️ YOLO model not available")
     
-    # Fallback: Coba CNN model
-    print(f"\n🧠 ATTEMPTING CNN PREDICTION (fallback)...")
-    print(f"CNN Model loaded: {cnn_model is not None}")
-    print(f"CNN Class names loaded: {class_names is not None}")
-    
-    if cnn_model is not None and class_names is not None:
-        try:
-            print("✅ CNN model available, proceeding with CNN prediction...")
-            result = predict_disease_cnn(image_path)
-            
-            if "error" not in result:
-                print(f"✅ CNN prediction successful!")
-                print(f"🎯 Result: {result.get('disease', 'Unknown')} ({result.get('confidence', 0):.3f})")
-                print(f"{'='*60}\n")
-                return result
-            else:
-                print(f"❌ CNN prediction failed: {result['error']}")
-                
-        except Exception as e:
-            print(f"❌ CNN prediction exception: {e}")
-            import traceback
-            print(f"📋 Traceback: {traceback.format_exc()}")
-    else:
         print("❌ CNN model or class names not available")
     
     # Fallback ke traditional model
@@ -798,6 +877,13 @@ def upload_file():
             file_size = os.path.getsize(file_path)
             print(f"📊 File size: {file_size} bytes")
             
+            # Cek apakah gambar adalah daun tomat
+            if not is_leaf_image(file_path):
+                error_msg = "Gambar tidak terdeteksi sebagai daun. Mohon upload foto daun tomat yang jelas."
+                print(f"❌ {error_msg}")
+                os.remove(file_path)
+                return jsonify({'error': error_msg}), 400
+            
             # Prediksi penyakit
             print(f"🔮 Starting disease prediction...")
             result = predict_disease(file_path)
@@ -826,7 +912,8 @@ def upload_file():
             print(f"📋 Traceback: {traceback.format_exc()}")
             return jsonify({'error': error_msg}), 500
     else:
-        error_msg = f'Invalid file type. Allowed types: {", ".join(ALLOWED_EXTENSIONS)}'
+        allowed_exts = ['png', 'jpg', 'jpeg', 'gif']
+        error_msg = f'Invalid file type. Allowed types: {", ".join(allowed_exts)}'
         print(f"❌ {error_msg}")
         return jsonify({'error': error_msg}), 400
 
@@ -837,6 +924,15 @@ def allowed_file(filename):
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/evaluation')
+def evaluation():
+    metrics = {}
+    metrics_path = os.path.join('static', 'metrics.json')
+    if os.path.exists(metrics_path):
+        with open(metrics_path, 'r') as f:
+            metrics = json.load(f)
+    return render_template('evaluation.html', metrics=metrics)
 
 # Global error handlers untuk memastikan API selalu return JSON
 @app.errorhandler(500)

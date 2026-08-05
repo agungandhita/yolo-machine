@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Evaluasi Model - TomatoDoc AI{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="fw-bold text-success">Hasil Evaluasi Model AI</h2>
+            <p class="text-muted">Metrik performa model YOLOv8 pada dataset validasi daun tomat</p>
+        </div>
+    </div>
+    
+    <div class="row mb-5">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white text-center h-100 shadow">
+                <div class="card-body">
+                    <h1 class="display-4 fw-bold">{{ "%.2f"|format(metrics.accuracy * 100) if metrics else 'N/A' }}%</h1>
+                    <h5>Akurasi</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white text-center h-100 shadow">
+                <div class="card-body">
+                    <h1 class="display-4 fw-bold">{{ "%.2f"|format(metrics.precision * 100) if metrics else 'N/A' }}%</h1>
+                    <h5>Presisi</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-warning text-dark text-center h-100 shadow">
+                <div class="card-body">
+                    <h1 class="display-4 fw-bold">{{ "%.2f"|format(metrics.recall * 100) if metrics else 'N/A' }}%</h1>
+                    <h5>Recall</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-danger text-white text-center h-100 shadow">
+                <div class="card-body">
+                    <h1 class="display-4 fw-bold">{{ "%.2f"|format(metrics.f1_score * 100) if metrics else 'N/A' }}%</h1>
+                    <h5>F1-Score</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="fas fa-th me-2"></i>Confusion Matrix</h5>
+                </div>
+                <div class="card-body text-center">
+                    {% if metrics %}
+                    <img src="{{ url_for('static', filename='images/confusion_matrix.png') }}" alt="Confusion Matrix" class="img-fluid rounded border">
+                    <p class="text-muted mt-3">Matriks kebingungan menunjukkan distribusi prediksi benar (diagonal) vs salah (di luar diagonal) untuk setiap kelas penyakit.</p>
+                    {% else %}
+                    <div class="alert alert-warning">Data evaluasi belum tersedia. Silakan jalankan skrip evaluasi terlebih dahulu.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

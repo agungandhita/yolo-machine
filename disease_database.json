@@ -1,0 +1,649 @@
+{
+    "Bercak Bakteri": {
+        "nama_penyakit": "Bercak Bakteri",
+        "penyebab": "Kelembaban tinggi / Suhu hangat 24-30\u00b0C / Percikan air hujan / Alat pertanian terkontaminasi",
+        "pencegahan": [
+            "Jaga kebersihan kebun",
+            "Hindari kelembaban berlebih",
+            "Sterilisasi alat pertanian"
+        ],
+        "obat": [
+            "Kocide 2000 (Tembaga Hidroksida)",
+            "Mancozeb 80 WP",
+            "Kasugamycin 2% SL"
+        ],
+        "tingkat_keparahan": "Sedang",
+        "referensi": "Penyakit bakteri (Xanthomonas) tidak mempan fungisida biasa; literatur mikrobiologi mewajibkan penggunaan Kasugamycin atau Tembaga Hidroksida sebagai bakterisida.",
+        "obat_details": [
+            {
+                "name": "Kocide 2000 (Tembaga Hidroksida)",
+                "type": "Bakterisida",
+                "active_ingredient": "Copper Hydroxide 53.8%",
+                "dosage": "2-3 gram per liter air",
+                "application": "Semprot merata pada seluruh bagian tanaman, terutama daun. Aplikasi setiap 7-10 hari atau setelah hujan.",
+                "warning": "Hindari aplikasi saat suhu > 32\u00b0C. Gunakan alat pelindung diri. Jangan campur dengan pestisida alkalin.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Mancozeb 80 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Mancozeb 80%",
+                "dosage": "2-2.5 gram per liter air",
+                "application": "Semprot preventif setiap 7-10 hari. Efektif untuk mencegah penyebaran.",
+                "warning": "Dapat menyebabkan iritasi kulit dan mata. Gunakan masker dan sarung tangan. Masa tunggu panen 7 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Kasugamycin 2% SL",
+                "type": "Bakterisida",
+                "active_ingredient": "Kasugamycin 2%",
+                "dosage": "2-3 ml per liter air",
+                "application": "Semprot 2-3 kali dengan interval 5-7 hari. Mulai saat gejala awal terlihat.",
+                "warning": "Bakterisida spesifik. Jangan gunakan berlebihan untuk menghindari resistensi.",
+                "availability": "Perlu toko pertanian khusus"
+            }
+        ],
+        "alternatif_organik": [
+            {
+                "name": "Larutan Bawang Putih",
+                "ingredients": "100 gram bawang putih + 1 liter air + 10 ml sabun cuci piring",
+                "application": "Haluskan bawang putih, rendam 24 jam, saring, tambahkan sabun. Semprot setiap 3-4 hari."
+            },
+            {
+                "name": "Larutan Daun Nimba",
+                "ingredients": "500 gram daun nimba segar + 5 liter air",
+                "application": "Rebus daun nimba 30 menit, dinginkan, saring. Semprot pada pagi/sore hari."
+            }
+        ],
+        "gejala": [
+            "Bercak kecil coklat dengan tepi kuning",
+            "Daun menguning dan layu",
+            "Buah dapat terinfeksi dengan bercak berkerak"
+        ]
+    },
+    "Hawar Daun Awal": {
+        "nama_penyakit": "Hawar Daun Awal",
+        "penyebab": "Kelembaban tinggi / Suhu 24-29\u00b0C / Daun yang lembab / Sirkulasi udara buruk",
+        "pencegahan": [
+            "Jarak tanam yang cukup",
+            "Pemangkasan untuk sirkulasi udara",
+            "Hindari penyiraman malam"
+        ],
+        "obat": [
+            "Chlorothalonil 75 WP",
+            "Mancozeb 80 WP",
+            "Azoxystrobin 25 SC",
+            "Difenoconazole 25 EC"
+        ],
+        "tingkat_keparahan": "Sedang-Tinggi",
+        "referensi": "Berdasarkan literatur perlindungan tanaman (Agrios, 2005), Hawar Daun Awal (Alternaria solani) paling efektif dikendalikan dengan golongan chloronitrile (Chlorothalonil) dikombinasikan dengan azoxystrobin.",
+        "obat_details": [
+            {
+                "name": "Chlorothalonil 75 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Chlorothalonil 75%",
+                "dosage": "2 gram per liter air",
+                "application": "Semprot preventif setiap 7-10 hari. Efektif untuk pencegahan penyebaran.",
+                "warning": "Dapat menyebabkan iritasi. Hindari inhalasi. Masa tunggu panen 14 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Mancozeb 80 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Mancozeb 80%",
+                "dosage": "2-2.5 gram per liter air",
+                "application": "Semprot preventif setiap 7-10 hari. Tingkatkan frekuensi saat cuaca lembab.",
+                "warning": "Dapat menyebabkan iritasi mata dan kulit. Gunakan masker dan sarung tangan.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Azoxystrobin 25 SC",
+                "type": "Fungisida Sistemik",
+                "active_ingredient": "Azoxystrobin 25%",
+                "dosage": "0.5-1 ml per liter air",
+                "application": "Aplikasi saat gejala awal. Interval 10-14 hari. Maksimal 3 aplikasi per musim.",
+                "warning": "Rotasi dengan fungisida lain untuk mencegah resistensi. Masa tunggu panen 21 hari.",
+                "availability": "Perlu toko pertanian khusus"
+            },
+            {
+                "name": "Difenoconazole 25 EC",
+                "type": "Fungisida Sistemik",
+                "active_ingredient": "Difenoconazole 25%",
+                "dosage": "0.5 ml per liter air",
+                "application": "Aplikasi saat gejala awal muncul. Interval 10-14 hari. Maksimal 3 kali per musim.",
+                "warning": "Rotasi dengan fungisida lain untuk mencegah resistensi. Masa tunggu panen 14 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            }
+        ],
+        "alternatif_organik": [
+            {
+                "name": "Larutan Trichoderma",
+                "ingredients": "Trichoderma sp. 10 gram + 10 liter air + 100 ml molase",
+                "application": "Fermentasi 7 hari, encerkan 1:10, semprot setiap 7 hari sebagai preventif."
+            },
+            {
+                "name": "Fungisida Nabati Lengkuas",
+                "ingredients": "250 gram lengkuas + 2 liter air + sabun cuci piring 10 ml",
+                "application": "Haluskan lengkuas, rendam 12 jam, saring, tambahkan sabun. Semprot setiap 5 hari."
+            }
+        ],
+        "gejala": [
+            "Bercak coklat dengan pola lingkaran konsentris (seperti papan target)",
+            "Daun menguning dan gugur mulai dari bawah",
+            "Batang dan buah juga bisa terinfeksi"
+        ]
+    },
+    "Hawar Daun Lanjut": {
+        "nama_penyakit": "Hawar Daun Lanjut",
+        "penyebab": "Kelembaban sangat tinggi / Suhu dingin 15-20\u00b0C / Hujan berkepanjangan / Kondisi lembab",
+        "pencegahan": [
+            "Varietas tahan penyakit",
+            "Drainase yang baik",
+            "Hindari kelembaban berlebih"
+        ],
+        "obat": [
+            "Ridomil Gold MZ 68 WP",
+            "Chlorothalonil 75 WP",
+            "Cymoxanil 8% + Mancozeb 64%"
+        ],
+        "tingkat_keparahan": "Sangat Tinggi",
+        "referensi": "Phytophthora infestans (Hawar Daun Lanjut) bersifat sangat destruktif. Referensi dari Plant Disease Handbook mewajibkan penggunaan Metalaxyl spesifik untuk Oomycetes.",
+        "obat_details": [
+            {
+                "name": "Ridomil Gold MZ 68 WP",
+                "type": "Fungisida Sistemik + Kontak",
+                "active_ingredient": "Metalaxyl-M 4% + Mancozeb 64%",
+                "dosage": "2 gram per liter air",
+                "application": "APLIKASI SEGERA saat gejala terdeteksi. Semprot setiap 5-7 hari. Kombinasi dengan fungisida kontak.",
+                "warning": "SANGAT PENTING: Masa tunggu panen 28 hari. Gunakan APD lengkap. Rotasi dengan fungisida berbeda.",
+                "availability": "Perlu toko pertanian khusus"
+            },
+            {
+                "name": "Chlorothalonil 75 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Chlorothalonil 75%",
+                "dosage": "2-2.5 gram per liter air",
+                "application": "Aplikasi preventif atau kombinasi dengan sistemik. Interval 5-7 hari.",
+                "warning": "Efektif untuk pencegahan dan menghambat penyebaran. Masa tunggu 14 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Cymoxanil 8% + Mancozeb 64%",
+                "type": "Fungisida Sistemik + Kontak",
+                "active_ingredient": "Cymoxanil 8% + Mancozeb 64%",
+                "dosage": "2.5 gram per liter air",
+                "application": "Aplikasi preventif sebelum hujan atau saat kelembaban tinggi. Interval 5-7 hari.",
+                "warning": "Tidak efektif setelah infeksi parah. Gunakan segera saat gejala awal. APD wajib.",
+                "availability": "Mudah didapat di toko pertanian"
+            }
+        ],
+        "alternatif_organik": [
+            {
+                "name": "Larutan Susu + Baking Soda",
+                "ingredients": "500 ml susu segar + 2 sendok makan baking soda + 5 liter air",
+                "application": "Campur rata, semprot preventif setiap 3-5 hari terutama saat cuaca lembab."
+            },
+            {
+                "name": "Ekstrak Jahe Merah",
+                "ingredients": "300 gram jahe merah + 3 liter air + 15 ml sabun",
+                "application": "Rebus jahe 20 menit, dinginkan, saring, tambahkan sabun. Semprot 2x sehari."
+            }
+        ],
+        "gejala": [
+            "Bercak coklat kehitaman basah pada daun",
+            "Daun layu dan mati dengan cepat",
+            "Buah membusuk berwarna coklat keras",
+            "Pertumbuhan jamur putih di bawah daun saat lembab"
+        ]
+    },
+    "Jamur Daun": {
+        "nama_penyakit": "Jamur Daun",
+        "penyebab": "Kelembaban tinggi (>85%) / Sirkulasi udara buruk / Suhu hangat / Kondisi lembab berkepanjangan",
+        "pencegahan": [
+            "Sirkulasi udara baik",
+            "Jarak tanam cukup",
+            "Hindari kelembaban berlebih"
+        ],
+        "obat": [
+            "Chlorothalonil 75 WP",
+            "Mancozeb 80 WP",
+            "Tembaga Hidroksida 77 WP",
+            "Benomyl 50 WP"
+        ],
+        "tingkat_keparahan": "Sedang",
+        "referensi": "Jamur daun (Leaf Mold) merespons baik terhadap Benzimidazole (Benomyl) dan Tembaga, berbeda dengan hawar.",
+        "obat_details": [
+            {
+                "name": "Chlorothalonil 75 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Chlorothalonil 75%",
+                "dosage": "2 gram per liter air",
+                "application": "Aplikasi preventif atau saat gejala awal. Interval 7 hari. Semprot hingga merata.",
+                "warning": "Dapat menyebabkan iritasi. Hindari inhalasi. Masa tunggu panen 14 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Mancozeb 80 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Mancozeb 80%",
+                "dosage": "2-2.5 gram per liter air",
+                "application": "Semprot preventif setiap 7-10 hari. Efektif untuk pencegahan.",
+                "warning": "Gunakan masker dan sarung tangan. Masa tunggu panen 7 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Tembaga Hidroksida 77 WP",
+                "type": "Fungisida/Bakterisida",
+                "active_ingredient": "Copper Hydroxide 77%",
+                "dosage": "2-3 gram per liter air",
+                "application": "Semprot pada pagi atau sore hari. Interval 7-10 hari.",
+                "warning": "Hindari aplikasi saat suhu tinggi. Dapat menyebabkan fitotoksisitas jika overdosis.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Benomyl 50 WP",
+                "type": "Fungisida Sistemik",
+                "active_ingredient": "Benomyl 50%",
+                "dosage": "1 gram per liter air",
+                "application": "Aplikasi saat gejala muncul. Interval 10-14 hari.",
+                "warning": "Rotasi dengan fungisida lain untuk mencegah resistensi. Masa tunggu 21 hari.",
+                "availability": "Perlu toko pertanian khusus"
+            }
+        ],
+        "alternatif_organik": [
+            {
+                "name": "Larutan Baking Soda",
+                "ingredients": "1 sendok makan baking soda + 1 liter air + 5 ml minyak sayur + sabun cuci piring 5 ml",
+                "application": "Campur rata, semprot setiap 3-5 hari terutama bagian bawah daun."
+            },
+            {
+                "name": "Teh Kompos",
+                "ingredients": "1 kg kompos matang + 10 liter air + 50 ml molase",
+                "application": "Fermentasi 3-7 hari dengan aerasi, saring, semprot setiap 7 hari."
+            }
+        ],
+        "gejala": [
+            "Bercak kuning tidak beraturan pada permukaan atas daun",
+            "Jamur beludru abu-abu atau ungu di bawah daun",
+            "Daun mengering dan gugur"
+        ]
+    },
+    "Bercak Daun Septoria": {
+        "nama_penyakit": "Bercak Daun Septoria",
+        "penyebab": "Kelembaban tinggi / Percikan air / Suhu hangat / Daun yang lembab",
+        "pencegahan": [
+            "Mulsa yang baik",
+            "Hindari penyiraman dari atas",
+            "Jarak tanam cukup"
+        ],
+        "obat": [
+            "Chlorothalonil 75 WP",
+            "Mancozeb 80 WP",
+            "Fungisida Tembaga"
+        ],
+        "tingkat_keparahan": "Sedang",
+        "referensi": "Septoria lycopersici memiliki pola resistensi unik. Meski menggunakan Mancozeb (spektrum luas), penambahan Copper Oxychloride spesifik direkomendasikan untuk menahan laju spora.",
+        "obat_details": [
+            {
+                "name": "Chlorothalonil 75 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Chlorothalonil 75%",
+                "dosage": "2 gram per liter air",
+                "application": "Aplikasi preventif setiap 7-10 hari. Mulai sebelum gejala muncul.",
+                "warning": "Efektif sebagai preventif. Kurang efektif setelah infeksi berat.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Mancozeb 80 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Mancozeb 80%",
+                "dosage": "2-2.5 gram per liter air",
+                "application": "Aplikasi preventif setiap 7-10 hari. Mulai sebelum gejala muncul.",
+                "warning": "Efektif sebagai preventif. Kurang efektif setelah infeksi berat.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Fungisida Tembaga",
+                "type": "Fungisida/Bakterisida",
+                "active_ingredient": "Copper Oxychloride 50% atau Copper Hydroxide 77%",
+                "dosage": "2-3 gram per liter air",
+                "application": "Semprot preventif setiap 7-10 hari atau setelah hujan.",
+                "warning": "Hindari aplikasi saat suhu tinggi. Masa tunggu 7 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            }
+        ],
+        "alternatif_organik": [
+            {
+                "name": "Ekstrak Daun Salam",
+                "ingredients": "200 gram daun salam + 2 liter air + 10 ml sabun",
+                "application": "Rebus 15 menit, dinginkan, saring, tambahkan sabun. Semprot setiap 5 hari."
+            },
+            {
+                "name": "Larutan Kunyit",
+                "ingredients": "150 gram kunyit + 1.5 liter air + sabun cuci piring 10 ml",
+                "application": "Blender kunyit dengan air, diamkan 12 jam, saring, tambahkan sabun. Semprot 2x seminggu."
+            }
+        ],
+        "gejala": [
+            "Bercak kecil bulat (2-3mm) dengan pinggir gelap dan tengah abu-abu",
+            "Titik hitam kecil di tengah bercak",
+            "Daun menguning dan gugur dari bawah ke atas"
+        ]
+    },
+    "Tungau Laba-laba": {
+        "nama_penyakit": "Tungau Laba-laba",
+        "penyebab": "Cuaca kering / Kelembaban rendah / Suhu tinggi / Kurang air/kekeringan",
+        "pencegahan": [
+            "Jaga kelembaban",
+            "Penyiraman teratur",
+            "Monitoring rutin"
+        ],
+        "obat": [
+            "Abamectin 1.8 EC",
+            "Sulfur (Belerang) 80 WP",
+            "Minyak Hortikultura atau Neem Oil",
+            "Pyridaben 20 WP"
+        ],
+        "tingkat_keparahan": "Sedang",
+        "referensi": "Tungau laba-laba bukan serangga biasa. Pengendalian wajib menggunakan Akarisida spesifik (Abamectin, Pyridaben) atau Sulfur, sesuai taksonomi Arachnida.",
+        "obat_details": [
+            {
+                "name": "Abamectin 1.8 EC",
+                "type": "Insektisida/Mitisida",
+                "active_ingredient": "Abamectin 1.8%",
+                "dosage": "0.5 ml per liter air",
+                "application": "Semprot sore hari (fotosensitif). Interval 7-10 hari. Rotasi dengan mitisida lain.",
+                "warning": "Racun kelas II. APD wajib. Hindari sinar matahari langsung saat aplikasi.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Sulfur (Belerang) 80 WP",
+                "type": "Mitisida/Fungisida",
+                "active_ingredient": "Sulfur 80%",
+                "dosage": "2-3 gram per liter air",
+                "application": "Semprot merata terutama bawah daun. Interval 7-10 hari.",
+                "warning": "Hindari aplikasi saat suhu > 32\u00b0C karena dapat menyebabkan fitotoksisitas.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Minyak Hortikultura atau Neem Oil",
+                "type": "Insektisida Botani",
+                "active_ingredient": "Petroleum Oil atau Azadirachtin",
+                "dosage": "10-15 ml per liter air",
+                "application": "Semprot merata terutama bagian bawah daun. Aplikasi sore hari. Interval 5-7 hari.",
+                "warning": "Relatif aman. Dapat dikombinasikan dengan metode lain.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Pyridaben 20 WP",
+                "type": "Mitisida",
+                "active_ingredient": "Pyridaben 20%",
+                "dosage": "0.5-1 gram per liter air",
+                "application": "Aplikasi saat populasi tungau terdeteksi. Efektif untuk semua stadia. Interval 10-14 hari.",
+                "warning": "Harga relatif mahal. Sangat efektif. Masa tunggu 7 hari.",
+                "availability": "Perlu toko pertanian khusus"
+            }
+        ],
+        "alternatif_organik": [
+            {
+                "name": "Semprotan Air Bertekanan",
+                "ingredients": "Air bersih",
+                "application": "Semprot dengan tekanan kuat pada bagian bawah daun setiap pagi selama 5-7 hari berturut-turut."
+            },
+            {
+                "name": "Larutan Sabun Insektisida",
+                "ingredients": "2 sendok makan sabun insektisida atau sabun cuci piring + 1 liter air",
+                "application": "Campur rata, semprot merata terutama bawah daun. Ulangi setiap 3 hari."
+            },
+            {
+                "name": "Minyak Neem",
+                "ingredients": "10 ml minyak neem + 1 liter air + 5 ml sabun cair",
+                "application": "Campur rata, semprot pada sore hari setiap 5-7 hari."
+            }
+        ],
+        "gejala": [
+            "Bercak kuning kecil (stippling) pada daun",
+            "Jaring halus di bawah daun atau antar daun",
+            "Daun mengering, berwarna perunggu, dan rontok",
+            "Pertumbuhan terhambat"
+        ]
+    },
+    "Bercak Target": {
+        "nama_penyakit": "Bercak Target",
+        "penyebab": "Kelembaban tinggi / Suhu hangat (20-28\u00b0C) / Luka pada tanaman / Kondisi stress pada tanaman",
+        "pencegahan": [
+            "Hindari luka pada tanaman",
+            "Nutrisi seimbang",
+            "Jaga kesehatan tanaman"
+        ],
+        "obat": [
+            "Azoxystrobin 25 SC",
+            "Chlorothalonil 75 WP",
+            "Mancozeb 80 WP",
+            "Fungisida Tembaga"
+        ],
+        "tingkat_keparahan": "Sedang",
+        "referensi": "Bercak target (Corynespora cassiicola) memerlukan rotasi bahan aktif Azoxystrobin dosis spesifik untuk mencegah resistensi silang dengan Alternaria.",
+        "obat_details": [
+            {
+                "name": "Azoxystrobin 25 SC",
+                "type": "Fungisida Sistemik",
+                "active_ingredient": "Azoxystrobin 25%",
+                "dosage": "0.5-0.75 ml per liter air",
+                "application": "Aplikasi saat gejala muncul. Interval 10-14 hari. Maksimal 3 aplikasi per musim.",
+                "warning": "Harga premium. Efektivitas tinggi. Rotasi wajib. Masa tunggu 21 hari.",
+                "availability": "Perlu toko pertanian khusus"
+            },
+            {
+                "name": "Chlorothalonil 75 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Chlorothalonil 75%",
+                "dosage": "2 gram per liter air",
+                "application": "Semprot preventif atau saat gejala awal. Interval 7-10 hari.",
+                "warning": "Efektif untuk pencegahan. Masa tunggu 14 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Mancozeb 80 WP",
+                "type": "Fungisida Kontak",
+                "active_ingredient": "Mancozeb 80%",
+                "dosage": "2-2.5 gram per liter air",
+                "application": "Semprot preventif setiap 7 hari. Kombinasi sistemik dan kontak.",
+                "warning": "Masa tunggu 7 hari. Patuhi interval aplikasi.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Fungisida Tembaga",
+                "type": "Fungisida/Bakterisida",
+                "active_ingredient": "Copper Hydroxide atau Copper Oxychloride",
+                "dosage": "2-3 gram per liter air",
+                "application": "Semprot preventif setiap 7-10 hari.",
+                "warning": "Hindari aplikasi saat suhu tinggi.",
+                "availability": "Mudah didapat di toko pertanian"
+            }
+        ],
+        "alternatif_organik": [
+            {
+                "name": "Larutan Serai Wangi",
+                "ingredients": "200 gram serai + 2 liter air + 10 ml sabun",
+                "application": "Rebus serai 20 menit, dinginkan, saring, tambahkan sabun. Semprot setiap 5 hari."
+            },
+            {
+                "name": "Fungisida Kayu Manis",
+                "ingredients": "3 sendok makan bubuk kayu manis + 1 liter air hangat",
+                "application": "Larutkan, diamkan 2 jam, saring, semprot pada pagi hari setiap 4-5 hari."
+            }
+        ],
+        "gejala": [
+            "Bercak coklat gelap dengan pola lingkaran konsentris",
+            "Pusat bercak berwarna abu-abu terang",
+            "Daun menguning dan layu"
+        ]
+    },
+    "Virus Keriting Daun Kuning": {
+        "nama_penyakit": "Virus Keriting Daun Kuning",
+        "penyebab": "Serangga vektor: Kutu Kebul (Bemisia tabaci) / Tanaman inang lain yang terinfeksi / Gulma di sekitar lahan",
+        "pencegahan": [
+            "Kendalikan kutu kebul sejak dini",
+            "Gunakan bibit sehat/resisten",
+            "Gunakan rumah kasa (screen house)"
+        ],
+        "obat": [
+            "Imidacloprid 20% SL",
+            "Abamectin 1.8% EC",
+            "Neem Oil (Minyak Nimba)"
+        ],
+        "tingkat_keparahan": "Tinggi",
+        "referensi": "Virus tidak dapat dibunuh. Pengendalian mutlak fokus pada vektor (kutu kebul) menggunakan Imidacloprid atau Abamectin sesuai standar manajemen OPT terpadu.",
+        "obat_details": [
+            {
+                "name": "Imidacloprid 20% SL",
+                "type": "Insektisida Sistemik (Kontrol Vektor)",
+                "active_ingredient": "Imidacloprid 20%",
+                "dosage": "0.25-0.5 ml per liter air",
+                "application": "FOKUS pada pengendalian kutu kebul (vektor). Semprot setiap 7-10 hari. Aplikasi sore hari.",
+                "warning": "Tidak membunuh virus, hanya mengendalikan vektor. Rotasi dengan insektisida lain. Masa tunggu 7 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Abamectin 1.8% EC",
+                "type": "Insektisida (Kontrol Vektor)",
+                "active_ingredient": "Abamectin 1.8%",
+                "dosage": "0.5 ml per liter air",
+                "application": "Khusus untuk kutu kebul. Aplikasi sore hari. Interval 7-10 hari.",
+                "warning": "PENTING: Tanaman terinfeksi virus HARUS DIBUANG. Obat hanya untuk mencegah penyebaran.",
+                "availability": "Mudah didapat di toko pertanian"
+            },
+            {
+                "name": "Neem Oil (Minyak Nimba)",
+                "type": "Insektisida Botani (Pengusir Vektor)",
+                "active_ingredient": "Azadirachtin",
+                "dosage": "10-15 ml per liter air",
+                "application": "Semprot pada sore hari. Interval 5-7 hari. Efektif mengusir kutu kebul.",
+                "warning": "Alternatif organik yang lebih aman. Perlu aplikasi lebih sering.",
+                "availability": "Mudah didapat di toko pertanian"
+            }
+        ],
+        "alternatif_organik": [
+            {
+                "name": "Perangkap Kuning Lengket",
+                "ingredients": "Kertas/plastik kuning + lem tikus atau minyak",
+                "application": "Pasang di sekitar tanaman setinggi tajuk. Ganti setiap 1-2 minggu. Menarik dan menangkap kutu kebul."
+            },
+            {
+                "name": "Mulsa Reflektif Aluminium",
+                "ingredients": "Mulsa plastik silver/aluminium foil",
+                "application": "Pasang di sekitar pangkal tanaman. Pantulan cahaya mengusir kutu kebul."
+            },
+            {
+                "name": "Larutan Sabun + Minyak",
+                "ingredients": "2 sendok makan sabun + 2 sendok makan minyak sayur + 1 liter air",
+                "application": "Semprot bagian bawah daun untuk membunuh kutu kebul setiap 3-4 hari."
+            }
+        ],
+        "gejala": [
+            "Daun mengkerut dan menggulung ke atas",
+            "Warna daun menguning (klorosis) terutama di tepi",
+            "Pertumbuhan tanaman kerdil",
+            "Produksi buah menurun drastis atau gagal berbuah"
+        ]
+    },
+    "Virus Mozaik Tomat": {
+        "nama_penyakit": "Virus Mozaik Tomat",
+        "penyebab": "Kontak mekanis (tangan, alat, pakaian) / Benih yang terinfeksi / Sisa tanaman di tanah",
+        "pencegahan": [
+            "Sterilisasi alat rutin",
+            "Cuci tangan sebelum bekerja",
+            "Gunakan benih bersertifikat bebas virus"
+        ],
+        "obat": [
+            "Disinfektan untuk Alat (Natrium Hipoklorit)",
+            "Thiamethoxam 25% WG (Kontrol Vektor)"
+        ],
+        "tingkat_keparahan": "Tinggi",
+        "referensi": "Virus mozaik menular secara mekanis. Penanganan wajib menggunakan disinfektan (Natrium Hipoklorit) pada alat pertanian, bukan pestisida.",
+        "obat_details": [
+            {
+                "name": "Disinfektan untuk Alat (Natrium Hipoklorit)",
+                "type": "Disinfektan",
+                "active_ingredient": "Natrium Hipoklorit 5.25%",
+                "dosage": "Encerkan 1:10 dengan air",
+                "application": "Sterilisasi alat pemangkas dan pertanian sebelum dan sesudah digunakan. Rendam 5-10 menit.",
+                "warning": "PENTING: Tidak ada obat untuk virus. Fokus pada pencegahan dan kontrol vektor. Tanaman terinfeksi BUANG.",
+                "availability": "Mudah didapat (pemutih pakaian)"
+            },
+            {
+                "name": "Thiamethoxam 25% WG (Kontrol Vektor)",
+                "type": "Insektisida Sistemik",
+                "active_ingredient": "Thiamethoxam 25%",
+                "dosage": "0.2-0.3 gram per liter air",
+                "application": "Efektif untuk kutu daun dan thrips. Aplikasi soil drench atau semprot. Interval 7-10 hari.",
+                "warning": "Rotasi dengan insektisida berbeda. Masa tunggu 7 hari.",
+                "availability": "Mudah didapat di toko pertanian"
+            }
+        ],
+        "alternatif_organik": [
+            {
+                "name": "Sanitasi Ketat",
+                "ingredients": "Tidak ada (prosedur)",
+                "application": "CUCI TANGAN dengan sabun sebelum menyentuh tanaman. Sterilisasi alat pemangkas dengan alkohol 70% atau api. Hindari merokok di kebun (tembakau pembawa virus)."
+            },
+            {
+                "name": "Larutan Susu 20%",
+                "ingredients": "200 ml susu segar + 800 ml air",
+                "application": "Semprot sebagai antivirus lemah. Aplikasi setiap 5-7 hari sebagai preventif."
+            },
+            {
+                "name": "Perangkap Biru untuk Thrips",
+                "ingredients": "Kertas/plastik biru + lem tikus",
+                "application": "Pasang di sekitar tanaman. Thrips tertarik warna biru. Ganti setiap 2 minggu."
+            }
+        ],
+        "gejala": [
+            "Pola mozaik hijau terang dan gelap pada daun",
+            "Daun keriting atau melepuh",
+            "Pertumbuhan tidak normal/kerdil",
+            "Buah memiliki bercak internal coklat (browning)"
+        ]
+    },
+    "Sehat": {
+        "nama_penyakit": "Sehat",
+        "penyebab": "Perawatan yang baik / Kondisi lingkungan optimal / Nutrisi cukup dan seimbang",
+        "pencegahan": [
+            "Perawatan preventif",
+            "Monitoring rutin",
+            "Sanitasi lingkungan"
+        ],
+        "obat": [],
+        "tingkat_keparahan": "Tidak ada",
+        "referensi": "Tanaman sehat tidak membutuhkan pestisida sintetis. Perawatan cukup menggunakan pupuk organik dan mulsa.",
+        "obat_details": [],
+        "alternatif_organik": [
+            {
+                "name": "Pupuk Kompos",
+                "ingredients": "Kompos matang 2-3 kg per tanaman",
+                "application": "Aplikasikan di sekitar pangkal tanaman setiap 3-4 minggu. Tingkatkan kesuburan tanah."
+            },
+            {
+                "name": "Pupuk Organik Cair (POC)",
+                "ingredients": "POC komersial atau buatan sendiri (fermentasi buah/sayur)",
+                "application": "Encerkan sesuai anjuran (biasanya 1:10), siram atau semprot daun setiap 2 minggu."
+            },
+            {
+                "name": "Trichoderma Preventif",
+                "ingredients": "Trichoderma sp. 10-20 gram + 10 liter air",
+                "application": "Aplikasi soil drench setiap bulan sebagai pencegahan jamur patogen tanah."
+            },
+            {
+                "name": "Mulsa Organik",
+                "ingredients": "Jerami, sekam padi, atau serbuk gergaji",
+                "application": "Tebarkan 5-10 cm di sekitar tanaman. Jaga kelembaban tanah dan cegah gulma."
+            }
+        ],
+        "gejala": [
+            "Daun hijau segar merata",
+            "Pertumbuhan batang kokoh dan normal",
+            "Tidak ada bercak, lubang, atau kerusakan"
+        ]
+    }
+}
