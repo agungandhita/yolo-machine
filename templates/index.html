@@ -1,85 +1,35 @@
 {% extends "base.html" %}
 
+{% block title %}TomatoDoc AI — Deteksi Penyakit Daun Tomat{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h1 class="display-4 fw-bold text-white mb-4">TomatoDoc AI</h1>
-                <p class="lead text-white mb-4">Sistem Deteksi Penyakit Daun Tomat Menggunakan Kecerdasan Buatan</p>
-                <p class="text-white mb-4">Upload foto daun tomat untuk mendapatkan diagnosis penyakit secara otomatis</p>
-                
-                <!-- Informasi Kegunaan Sistem -->
-                <div class="row mt-5">
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center">
-                                <i class="fas fa-microscope fa-3x text-primary mb-3"></i>
-                                <h5>Diagnosis Akurat</h5>
-                                <p class="text-muted">Deteksi 10+ jenis penyakit tomat dengan akurasi 73% menggunakan teknologi Random Forest</p>
-                            </div>
+            <div class="col-lg-9 text-center">
+                <h1 class="display-4 fw-bold text-white mb-3">TomatoDoc AI</h1>
+                <p class="lead text-white mb-2">Sistem Deteksi Penyakit Daun Tomat Berbasis Deep Learning (MobileNetV2)</p>
+                <p class="text-white-50 mb-4">Upload foto daun tomat — dapatkan diagnosis & rekomendasi obat spesifik dalam hitungan detik</p>
+
+                <!-- Stats Bar -->
+                <div class="row g-3 mt-2">
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <div class="stat-num">10</div>
+                            <div class="stat-label">Kelas Penyakit</div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center">
-                                <i class="fas fa-clock fa-3x text-success mb-3"></i>
-                                <h5>Hasil Instan</h5>
-                                <p class="text-muted">Dapatkan hasil analisis dalam hitungan detik dengan rekomendasi penanganan yang tepat</p>
-                            </div>
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <div class="stat-num">51%</div>
+                            <div class="stat-label">Akurasi Validasi</div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center">
-                                <i class="fas fa-leaf fa-3x text-warning mb-3"></i>
-                                <h5>Panduan Lengkap</h5>
-                                <p class="text-muted">Informasi detail tentang gejala, penyebab, penanganan, dan pencegahan penyakit</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Cara Penggunaan -->
-                <div class="mt-5">
-                    <h4 class="text-white mb-4">Cara Menggunakan Sistem</h4>
-                    <div class="row">
-                        <div class="col-md-3 mb-3">
-                            <div class="text-center">
-                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                    <span class="fw-bold fs-4">1</span>
-                                </div>
-                                <h6 class="mt-3 text-white">Ambil Foto</h6>
-                                <p class="text-white-50 small">Foto daun tomat dengan pencahayaan yang baik</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="text-center">
-                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                    <span class="fw-bold fs-4">2</span>
-                                </div>
-                                <h6 class="mt-3 text-white">Upload Gambar</h6>
-                                <p class="text-white-50 small">Pilih file gambar dari perangkat Anda</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="text-center">
-                                <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                    <span class="fw-bold fs-4">3</span>
-                                </div>
-                                <h6 class="mt-3 text-white">Analisis AI</h6>
-                                <p class="text-white-50 small">Sistem akan menganalisis gambar secara otomatis</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="text-center">
-                                <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                    <span class="fw-bold fs-4">4</span>
-                                </div>
-                                <h6 class="mt-3 text-white">Dapatkan Hasil</h6>
-                                <p class="text-white-50 small">Lihat diagnosis dan rekomendasi penanganan</p>
-                            </div>
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <div class="stat-num">MobileNetV2</div>
+                            <div class="stat-label">Arsitektur CNN</div>
                         </div>
                     </div>
                 </div>
@@ -91,29 +41,57 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <!-- Upload Section -->
-            <div class="card mb-4">
+
+            <!-- ============================================================ -->
+            <!-- Upload Section                                                -->
+            <!-- ============================================================ -->
+            <div class="card mb-4" id="uploadCard">
                 <div class="card-header">
-                    <i class="fas fa-upload me-2"></i>
-                    Upload Foto Daun Tomat
+                    <i class="fas fa-upload me-2"></i>Upload Foto Daun Tomat
                 </div>
                 <div class="card-body">
+                    <!-- Alert: gambar tidak valid -->
+                    <div id="notLeafAlert" class="alert alert-danger d-none" role="alert">
+                        <div class="d-flex align-items-start gap-3">
+                            <i class="fas fa-times-circle fa-2x text-danger mt-1 flex-shrink-0"></i>
+                            <div>
+                                <h6 class="alert-heading mb-1">Gambar Ditolak: Bukan Daun Tomat!</h6>
+                                <p id="notLeafMsg" class="mb-2 small"></p>
+                                <hr class="my-2">
+                                <p class="mb-0 small">
+                                    <strong>Pastikan gambar Anda:</strong><br>
+                                    ✔ Foto daun tomat yang jelas dan fokus<br>
+                                    ✔ Pencahayaan yang cukup (tidak terlalu gelap/terang)<br>
+                                    ✔ Latar belakang tidak terlalu ramai<br>
+                                    ✔ Resolusi minimal 100×100 piksel
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alert: error umum -->
+                    <div id="errorAlert" class="alert alert-warning d-none" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <span id="errorMsg"></span>
+                    </div>
+
                     <form id="uploadForm" enctype="multipart/form-data">
                         <div class="upload-area" id="uploadArea">
                             <div class="upload-content" id="uploadContent">
                                 <i class="fas fa-cloud-upload-alt upload-icon"></i>
                                 <h4>Upload Foto Daun Tomat</h4>
-                                <p class="text-muted">Seret & lepas atau klik untuk memilih gambar</p>
+                                <p class="text-muted">Seret &amp; lepas atau klik untuk memilih gambar</p>
+                                <p class="text-muted small">⚠️ Hanya gambar daun tomat yang diterima (JPG, PNG, BMP)</p>
                                 <input type="file" id="imageInput" accept="image/*" style="display: none;">
                                 <button type="button" class="btn btn-primary" onclick="document.getElementById('imageInput').click()">
                                     <i class="fas fa-plus me-2"></i>Pilih Gambar
                                 </button>
                             </div>
-                            
+
                             <div class="preview-container" id="previewContainer" style="display: none;">
                                 <img id="previewImage" src="" alt="Preview" class="preview-image">
                                 <div class="preview-actions mt-3">
-                                    <button type="button" class="btn btn-success btn-lg me-2" onclick="analyzeImage()">
+                                    <button type="button" class="btn btn-success btn-lg me-2" onclick="analyzeImage()" id="analyzeBtn">
                                         <i class="fas fa-search me-2"></i>Analisis Gambar
                                     </button>
                                     <button type="button" class="btn btn-outline-secondary" onclick="resetUpload()">
@@ -123,141 +101,131 @@
                             </div>
                         </div>
                     </form>
-                    
+
                     <!-- Loading Spinner -->
                     <div class="loading-spinner" id="loadingSpinner">
                         <div class="spinner-border" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
-                        <p class="mt-2">Menganalisis gambar...</p>
+                        <p class="mt-2">Menganalisis gambar… Memvalidasi daun tomat…</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Results Section -->
+            <!-- ============================================================ -->
+            <!-- Results Section                                               -->
+            <!-- ============================================================ -->
             <div id="resultsSection" style="display: none;">
-                <div class="card result-card">
+
+                <!-- Hasil Gambar + Probabilitas -->
+                <div class="card result-card mb-4">
                     <div class="card-header">
-                        <i class="fas fa-chart-line me-2"></i>
-                        Hasil Analisis
+                        <i class="fas fa-chart-line me-2"></i>Hasil Analisis Gambar
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 text-center mb-3">
-                                <img id="resultImage" src="" alt="Analyzed Image" class="img-fluid rounded shadow">
+                                <img id="resultImage" src="" alt="Gambar Teranalisis" class="img-fluid rounded shadow" style="max-height: 200px;">
+                                <p class="text-muted small mt-2">Gambar yang dianalisis</p>
                             </div>
                             <div class="col-md-8">
-                                <div id="diseaseResult">
-                                    <!-- Results will be populated here -->
-                                </div>
+                                <div id="diseaseResult"></div>
                             </div>
                         </div>
-                        
-                        <!-- Detailed Probabilities -->
+
+                        <!-- Probabilitas -->
                         <div class="mt-4">
-                            <h5><i class="fas fa-chart-bar me-2"></i>Detail Probabilitas Semua Penyakit</h5>
-                            <div id="probabilitiesChart">
-                                <!-- Probabilities will be populated here -->
-                            </div>
+                            <h6><i class="fas fa-chart-bar me-2"></i>Distribusi Probabilitas Semua Kelas</h6>
+                            <div id="probabilitiesChart"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Diagnosis Utama -->
-                <div class="card mb-3 border-primary mt-4">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0"><i class="fas fa-stethoscope me-2"></i>Diagnosis Utama</h5>
+                <!-- ─── DIAGNOSIS UTAMA ─── -->
+                <div class="card mb-3 border-0 shadow" id="diagnosisCard">
+                    <div class="card-header" id="diagnosisHeader">
+                        <h5 class="mb-0"><i class="fas fa-stethoscope me-2"></i>Diagnosis &amp; Rekomendasi</h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <h4 id="disease-name" class="text-primary mb-3"></h4>
+                                <!-- Nama penyakit -->
+                                <h4 id="disease-name" class="mb-3"></h4>
+
+                                <!-- Confidence -->
                                 <div class="mb-3">
-                                    <h6>Tingkat Kepercayaan:</h6>
-                                    <div class="progress mb-2" style="height: 25px;">
+                                    <h6><i class="fas fa-percentage me-1"></i>Tingkat Kepercayaan Model:</h6>
+                                    <div class="progress mb-1" style="height: 22px;">
                                         <div id="confidence-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
                                     </div>
-                                    <p id="confidence-text" class="mb-0"></p>
+                                    <small id="confidence-text" class="text-muted"></small>
                                 </div>
-                                <div id="recommendations-section">
-                                    <h6><i class="fas fa-lightbulb me-2"></i>Rekomendasi:</h6>
-                                    <ul id="recommendations-list" class="list-unstyled"></ul>
-                                </div>
-                                
-                                <!-- Medicine Recommendations -->
-                                <div id="medicine-section" class="mt-3" style="display: none;">
-                                    <hr>
-                                    <h6 class="text-danger"><i class="fas fa-pills me-2"></i>Rekomendasi Obat Kimia:</h6>
-                                    <ul id="medicine-list" class="list-unstyled mb-3"></ul>
-                                    
-                                    <h6 class="text-success"><i class="fas fa-leaf me-2"></i>Alternatif Organik:</h6>
-                                    <ul id="organic-list" class="list-unstyled mb-3"></ul>
-                                    
-                                    <div id="medicine-notes" class="alert alert-warning mt-3 text-pre-wrap"></div>
-                                </div>
+
+                                <!-- Deskripsi singkat -->
+                                <div id="description-box" class="alert mb-3"></div>
                             </div>
-                            <div class="col-md-4">
-                                <div id="severity-badge" class="text-center mb-3"></div>
-                                <div id="urgency-info" class="alert alert-info text-center"></div>
+                            <div class="col-md-4 text-center">
+                                <div id="severity-badge" class="mb-3"></div>
+                                <div id="urgency-info" class="alert alert-info"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Informasi Detail -->
-                <div class="row">
-                    <!-- Deskripsi -->
-                    <div class="col-md-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-header bg-info text-white">
-                                <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Deskripsi</h6>
-                            </div>
-                            <div class="card-body">
-                                <p id="disease-description" class="mb-0"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Gejala -->
+                <!-- ─── GEJALA & PENYEBAB ─── -->
+                <div class="row mb-3">
                     <div class="col-md-6 mb-3">
                         <div class="card h-100">
                             <div class="card-header bg-warning text-dark">
-                                <h6 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Gejala</h6>
+                                <h6 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Gejala yang Ditemukan</h6>
                             </div>
                             <div class="card-body">
                                 <ul id="symptoms-list" class="list-unstyled mb-0"></ul>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <!-- Penyebab -->
                     <div class="col-md-6 mb-3">
                         <div class="card h-100">
                             <div class="card-header bg-danger text-white">
-                                <h6 class="mb-0"><i class="fas fa-bug me-2"></i>Penyebab</h6>
+                                <h6 class="mb-0"><i class="fas fa-bug me-2"></i>Penyebab Penyakit</h6>
                             </div>
                             <div class="card-body">
                                 <ul id="causes-list" class="list-unstyled mb-0"></ul>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Penanganan -->
-                    <div class="col-md-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-header bg-success text-white">
-                                <h6 class="mb-0"><i class="fas fa-medkit me-2"></i>Penanganan</h6>
-                            </div>
-                            <div class="card-body">
-                                <ul id="treatment-list" class="list-unstyled mb-0"></ul>
-                            </div>
+                <!-- ─── REKOMENDASI OBAT KIMIA (SPESIFIK PER PENYAKIT) ─── -->
+                <div id="medicine-section" class="card mb-3 border-danger" style="display:none;">
+                    <div class="card-header bg-danger text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-pills me-2"></i>
+                            Rekomendasi Obat Kimia
+                            <span id="medicine-disease-label" class="badge bg-light text-danger ms-2"></span>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="medicine-list-container"></div>
+                        <div id="medicine-notes-box" class="alert alert-warning mt-3 d-none">
+                            <i class="fas fa-book-open me-2"></i>
+                            <strong>Referensi Ilmiah:</strong>
+                            <span id="medicine-notes-text"></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Pencegahan -->
+                <!-- ─── ALTERNATIF ORGANIK ─── -->
+                <div id="organic-section" class="card mb-3 border-success" style="display:none;">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0"><i class="fas fa-leaf me-2"></i>Alternatif Organik</h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="organic-list-container"></div>
+                    </div>
+                </div>
+
+                <!-- ─── PENCEGAHAN ─── -->
                 <div class="card mb-3">
                     <div class="card-header bg-secondary text-white">
                         <h6 class="mb-0"><i class="fas fa-shield-alt me-2"></i>Pencegahan</h6>
@@ -266,42 +234,44 @@
                         <ul id="prevention-list" class="list-unstyled mb-0"></ul>
                     </div>
                 </div>
+
+                <!-- Reset Button -->
+                <div class="text-center mt-2 mb-5">
+                    <button class="btn btn-outline-primary btn-lg" onclick="resetUpload()">
+                        <i class="fas fa-redo me-2"></i>Analisis Gambar Lain
+                    </button>
+                </div>
             </div>
+
         </div>
     </div>
 
     <!-- Info Cards -->
-    <div class="row mt-5">
+    <div class="row mt-3 mb-5">
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
-                    <div class="mb-3">
-                        <i class="fas fa-brain" style="font-size: 3rem; color: var(--accent-color);"></i>
-                    </div>
-                    <h5>Machine Learning</h5>
-                    <p class="text-muted">Menggunakan algoritma Random Forest yang dilatih dengan ribuan gambar daun tomat</p>
+                    <div class="mb-3"><i class="fas fa-brain" style="font-size: 3rem; color: var(--accent-color);"></i></div>
+                    <h5>Deep Learning</h5>
+                    <p class="text-muted">MobileNetV2 Transfer Learning dilatih dengan ribuan gambar daun tomat dari dataset PlantVillage</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
-                    <div class="mb-3">
-                        <i class="fas fa-eye" style="font-size: 3rem; color: var(--accent-color);"></i>
-                    </div>
-                    <h5>Computer Vision</h5>
-                    <p class="text-muted">Analisis fitur visual seperti warna, tekstur, dan pola untuk identifikasi penyakit</p>
+                    <div class="mb-3"><i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--accent-color);"></i></div>
+                    <h5>Validasi Ketat</h5>
+                    <p class="text-muted">Sistem menolak gambar yang bukan daun tomat menggunakan confidence threshold & entropy analysis</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
-                    <div class="mb-3">
-                        <i class="fas fa-seedling" style="font-size: 3rem; color: var(--accent-color);"></i>
-                    </div>
-                    <h5>10 Jenis Penyakit</h5>
-                    <p class="text-muted">Dapat mendeteksi berbagai penyakit tomat termasuk bacterial spot, early blight, dan lainnya</p>
+                    <div class="mb-3"><i class="fas fa-pills" style="font-size: 3rem; color: var(--accent-color);"></i></div>
+                    <h5>Obat Spesifik</h5>
+                    <p class="text-muted">Rekomendasi obat berbeda-beda sesuai penyakit yang terdeteksi, dilengkapi dosis dan cara aplikasi</p>
                 </div>
             </div>
         </div>
@@ -311,382 +281,326 @@
 
 {% block extra_js %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let selectedFile = null;
-    
-    const uploadArea = document.getElementById('uploadArea');
-    const imageInput = document.getElementById('imageInput');
-    const previewContainer = document.getElementById('previewContainer');
-    const previewImage = document.getElementById('previewImage');
-    const loadingSpinner = document.getElementById('loadingSpinner');
-    const resultsSection = document.getElementById('resultsSection');
 
-    // Drag and drop functionality
-    uploadArea.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        uploadArea.classList.add('dragover');
-    });
+    const uploadArea        = document.getElementById('uploadArea');
+    const imageInput        = document.getElementById('imageInput');
+    const previewContainer  = document.getElementById('previewContainer');
+    const previewImage      = document.getElementById('previewImage');
+    const loadingSpinner    = document.getElementById('loadingSpinner');
+    const resultsSection    = document.getElementById('resultsSection');
+    const notLeafAlert      = document.getElementById('notLeafAlert');
+    const errorAlert        = document.getElementById('errorAlert');
 
-    uploadArea.addEventListener('dragleave', function(e) {
-        e.preventDefault();
-        uploadArea.classList.remove('dragover');
-    });
-
-    uploadArea.addEventListener('drop', function(e) {
+    // ── Drag & drop ────────────────────────────────────────────────
+    uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+    uploadArea.addEventListener('dragleave', e => { e.preventDefault(); uploadArea.classList.remove('dragover'); });
+    uploadArea.addEventListener('drop', e => {
         e.preventDefault();
         uploadArea.classList.remove('dragover');
-        
         const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            imageInput.files = files;
-            handleFileSelect(files[0]);
-        }
+        if (files.length > 0) { imageInput.files = files; handleFileSelect(files[0]); }
     });
 
-    // File input change
-    imageInput.addEventListener('change', function(e) {
-        if (e.target.files.length > 0) {
-            handleFileSelect(e.target.files[0]);
-        }
+    imageInput.addEventListener('change', e => {
+        if (e.target.files.length > 0) handleFileSelect(e.target.files[0]);
     });
 
-    // Handle file selection
     function handleFileSelect(file) {
         if (file && file.type.startsWith('image/')) {
             selectedFile = file;
+            hideAlerts();
             showPreview(file);
         } else {
-            alert('Silakan pilih file gambar yang valid.');
+            showError('File tidak valid. Pilih file gambar (JPG, PNG, BMP).');
         }
     }
-    
-    // Show preview function
+
     function showPreview(file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = e => {
             previewImage.src = e.target.result;
-            document.querySelector('.upload-content').style.display = 'none';
+            document.getElementById('uploadContent').style.display = 'none';
             previewContainer.style.display = 'block';
         };
         reader.readAsDataURL(file);
     }
-    
-    // Analyze image function
-    window.analyzeImage = function() {
-        if (!selectedFile) {
-            alert('Silakan pilih gambar terlebih dahulu.');
-            return;
-        }
+
+    function hideAlerts() {
+        notLeafAlert.classList.add('d-none');
+        errorAlert.classList.add('d-none');
+    }
+
+    function showNotLeafError(msg) {
+        document.getElementById('notLeafMsg').textContent = msg;
+        notLeafAlert.classList.remove('d-none');
+        errorAlert.classList.add('d-none');
+        notLeafAlert.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showError(msg) {
+        document.getElementById('errorMsg').textContent = msg;
+        errorAlert.classList.remove('d-none');
+        notLeafAlert.classList.add('d-none');
+    }
+
+    // ── Analisis gambar ────────────────────────────────────────────
+    window.analyzeImage = function () {
+        if (!selectedFile) { showError('Silakan pilih gambar terlebih dahulu.'); return; }
 
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        // Show loading spinner
         loadingSpinner.style.display = 'block';
         resultsSection.style.display = 'none';
+        hideAlerts();
+        document.getElementById('analyzeBtn').disabled = true;
 
-        fetch('/upload', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            loadingSpinner.style.display = 'none';
-            if (data.error) {
-                alert('Error: ' + data.error);
-                return;
-            }
-            
-            // Tampilkan diagnosis utama
-            document.getElementById('disease-name').textContent = data.disease;
-            document.getElementById('confidence-text').textContent = 
-                `${(data.confidence * 100).toFixed(1)}% (${data.confidence_level})`;
-            
-            // Update progress bar
-            const progressBar = document.getElementById('confidence-bar');
-            const percentage = (data.confidence * 100).toFixed(1);
-            progressBar.style.width = percentage + '%';
-            progressBar.textContent = percentage + '%';
-            
-            // Set warna berdasarkan tingkat kepercayaan
-            progressBar.className = 'progress-bar progress-bar-striped progress-bar-animated';
-            if (data.confidence > 0.8) {
-                progressBar.classList.add('bg-success');
-            } else if (data.confidence > 0.6) {
-                progressBar.classList.add('bg-warning');
-            } else {
-                progressBar.classList.add('bg-danger');
-            }
-            
-            // Tampilkan rekomendasi
-            const recommendationsList = document.getElementById('recommendations-list');
-            recommendationsList.innerHTML = '';
-            if (data.recommendations && data.recommendations.length > 0) {
-                data.recommendations.forEach(rec => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<i class="fas fa-check-circle text-success me-2"></i>${rec}`;
-                    li.className = 'mb-2';
-                    recommendationsList.appendChild(li);
-                });
-            }
-            
-            // Tampilkan severity badge
-            const severityBadge = document.getElementById('severity-badge');
-            let badgeClass = 'badge fs-6 p-3';
-            if (data.severity === 'Tinggi') {
-                badgeClass += ' bg-danger';
-            } else if (data.severity === 'Sedang') {
-                badgeClass += ' bg-warning text-dark';
-            } else {
-                badgeClass += ' bg-success';
-            }
-            severityBadge.innerHTML = `<span class="${badgeClass}">Tingkat Keparahan: ${data.severity || 'Normal'}</span>`;
-            
-            // Tampilkan urgency
-            document.getElementById('urgency-info').innerHTML = 
-                `<i class="fas fa-clock me-2"></i><strong>Tindakan:</strong> ${data.urgency || 'Pemantauan rutin'}`;
-            
-            // Tampilkan deskripsi
-            document.getElementById('disease-description').textContent = data.description;
-            
-            // Tampilkan gejala
-            const symptomsList = document.getElementById('symptoms-list');
-            symptomsList.innerHTML = '';
-            if (data.symptoms && data.symptoms.length > 0) {
-                data.symptoms.forEach(symptom => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<i class="fas fa-dot-circle text-warning me-2"></i>${symptom}`;
-                    li.className = 'mb-1';
-                    symptomsList.appendChild(li);
-                });
-            } else {
-                symptomsList.innerHTML = '<li class="text-muted">Tidak ada gejala spesifik</li>';
-            }
-            
-            // Tampilkan penyebab
-            const causesList = document.getElementById('causes-list');
-            causesList.innerHTML = '';
-            if (data.causes && data.causes.length > 0) {
-                data.causes.forEach(cause => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<i class="fas fa-arrow-right text-danger me-2"></i>${cause}`;
-                    li.className = 'mb-1';
-                    causesList.appendChild(li);
-                });
-            } else {
-                causesList.innerHTML = '<li class="text-muted">Penyebab tidak spesifik</li>';
-            }
-            
-            // Tampilkan penanganan
-            const treatmentList = document.getElementById('treatment-list');
-            treatmentList.innerHTML = '';
-            if (data.treatment && data.treatment.length > 0) {
-                data.treatment.forEach(treatment => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<i class="fas fa-check text-success me-2"></i>${treatment}`;
-                    li.className = 'mb-1';
-                    treatmentList.appendChild(li);
-                });
-            } else {
-                treatmentList.innerHTML = '<li class="text-muted">Konsultasi dengan ahli pertanian</li>';
-            }
-            
-            // Tampilkan pencegahan
-            const preventionList = document.getElementById('prevention-list');
-            preventionList.innerHTML = '';
-            if (data.prevention && data.prevention.length > 0) {
-                data.prevention.forEach(prevention => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<i class="fas fa-shield-alt text-secondary me-2"></i>${prevention}`;
-                    li.className = 'mb-1';
-                    preventionList.appendChild(li);
-                });
-            } else {
-                preventionList.innerHTML = '<li class="text-muted">Praktik pertanian yang baik</li>';
-            }
-            
-            // Tampilkan rekomendasi obat
-            const medicineSection = document.getElementById('medicine-section');
-            const medicineList = document.getElementById('medicine-list');
-            const organicList = document.getElementById('organic-list');
-            const medicineNotes = document.getElementById('medicine-notes');
-            
-            if ((data.recommended_medicines && data.recommended_medicines.length > 0) || 
-                (data.organic_alternatives && data.organic_alternatives.length > 0)) {
-                
-                medicineSection.style.display = 'block';
-                
-                // Obat Kimia
-                medicineList.innerHTML = '';
-                if (data.recommended_medicines && data.recommended_medicines.length > 0) {
-                    data.recommended_medicines.forEach(med => {
-                        const li = document.createElement('li');
-                        li.className = 'mb-2';
-                        li.innerHTML = `
-                            <strong>${med.name}</strong> (${med.type})<br>
-                            <small class="text-muted">
-                                <i class="fas fa-flask me-1"></i>Bahan aktif: ${med.active_ingredient}<br>
-                                <i class="fas fa-prescription-bottle me-1"></i>Dosis: ${med.dosage}
-                            </small>
-                        `;
-                        medicineList.appendChild(li);
-                    });
-                } else {
-                    medicineList.innerHTML = '<li class="text-muted">Tidak ada rekomendasi obat kimia khusus</li>';
+        fetch('/upload', { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                loadingSpinner.style.display = 'none';
+                document.getElementById('analyzeBtn').disabled = false;
+
+                if (data.error) {
+                    // Gambar bukan daun tomat → tampilkan alert khusus
+                    if (data.is_not_leaf) {
+                        showNotLeafError(
+                            data.error.replace('❌ Gambar ditolak: Bukan daun tomat!\n\n', '')
+                                     .split('\n\nPastikan')[0]
+                        );
+                    } else {
+                        showError(data.error);
+                    }
+                    return;
                 }
-                
-                // Alternatif Organik
-                organicList.innerHTML = '';
-                if (data.organic_alternatives && data.organic_alternatives.length > 0) {
-                    data.organic_alternatives.forEach(org => {
-                        const li = document.createElement('li');
-                        li.className = 'mb-2';
-                        li.innerHTML = `
-                            <strong>${org.name}</strong><br>
-                            <small class="text-muted">
-                                <i class="fas fa-blender me-1"></i>Bahan: ${org.ingredients}<br>
-                                <i class="fas fa-spray-can me-1"></i>Aplikasi: ${org.application}
-                            </small>
-                        `;
-                        organicList.appendChild(li);
-                    });
-                } else {
-                    organicList.innerHTML = '<li class="text-muted">Tidak ada alternatif organik khusus</li>';
-                }
-                
-                // Catatan
-                if (data.medicine_notes) {
-                    medicineNotes.textContent = data.medicine_notes;
-                    medicineNotes.style.display = 'block';
-                } else {
-                    medicineNotes.style.display = 'none';
-                }
-                
-            } else {
-                medicineSection.style.display = 'none';
-            }
-            
-            displayResults(data);
-        })
-        .catch(error => {
-            loadingSpinner.style.display = 'none';
-            alert('Error saat menganalisis gambar: ' + error);
-        });
+
+                displayResults(data);
+            })
+            .catch(err => {
+                loadingSpinner.style.display = 'none';
+                document.getElementById('analyzeBtn').disabled = false;
+                showError('Gagal menghubungi server: ' + err.message);
+            });
     };
 
-    // Form submission
-    uploadForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData();
-        const file = fileInput.files[0];
-        
-        if (!file) {
-            alert('Please select an image first.');
-            return;
-        }
-        
-        formData.append('file', file);
-        
-        // Show loading
-        loadingSpinner.style.display = 'block';
-        resultsSection.style.display = 'none';
-        
-        // Submit to server
-        fetch('/upload', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            loadingSpinner.style.display = 'none';
-            
-            if (data.error) {
-                alert('Error: ' + data.error);
-                return;
-            }
-            
-            displayResults(data);
-        })
-        .catch(error => {
-            loadingSpinner.style.display = 'none';
-            console.error('Error:', error);
-            alert('An error occurred while processing the image.');
-        });
-    });
-
-    // Display results
+    // ── Tampilkan hasil ────────────────────────────────────────────
     function displayResults(data) {
-        const resultImage = document.getElementById('resultImage');
-        const diseaseResult = document.getElementById('diseaseResult');
-        const probabilitiesChart = document.getElementById('probabilitiesChart');
-        
-        // Set result image
-        resultImage.src = '/static/' + data.image_path;
-        
-        // Determine if healthy or diseased
-        const isHealthy = data.disease.toLowerCase().includes('healthy');
-        const badgeClass = isHealthy ? 'healthy-badge' : '';
-        
-        // Create disease result HTML
-        diseaseResult.innerHTML = `
-            <div class="disease-badge ${badgeClass}">
+        hideAlerts();
+
+        // Header & warna kartu diagnosis
+        const diagHeader = document.getElementById('diagnosisHeader');
+        if (data.is_healthy) {
+            diagHeader.className = 'card-header bg-success text-white';
+        } else {
+            const sev = data.severity || '';
+            if (sev === 'Sangat Tinggi' || sev === 'Tinggi') {
+                diagHeader.className = 'card-header bg-danger text-white';
+            } else {
+                diagHeader.className = 'card-header bg-primary text-white';
+            }
+        }
+
+        // Gambar hasil
+        document.getElementById('resultImage').src = '/static/' + data.image_path;
+
+        // Badge + summary
+        const isHealthy  = data.is_healthy;
+        const badgeClass = isHealthy ? 'disease-badge healthy-badge' : 'disease-badge';
+        document.getElementById('diseaseResult').innerHTML = `
+            <div class="${badgeClass}">
                 <i class="fas ${isHealthy ? 'fa-check-circle' : 'fa-exclamation-triangle'} me-2"></i>
                 ${data.disease}
             </div>
-            <div class="mb-3">
-                <h6>Tingkat Kepercayaan: ${data.confidence_level}</h6>
-                <div class="confidence-bar">
-                    <div class="confidence-fill" style="width: ${(data.confidence * 100).toFixed(1)}%"></div>
-                </div>
-                <small class="text-muted">${(data.confidence * 100).toFixed(1)}%</small>
-            </div>
-            <div class="alert ${isHealthy ? 'alert-success' : 'alert-warning'}">
-                <h6><i class="fas fa-info-circle me-2"></i>Deskripsi & Penanganan:</h6>
-                <p class="mb-0">${data.description}</p>
+            <div class="mt-2">
+                <span class="badge bg-secondary me-2">Tingkat Keparahan: ${data.severity || '-'}</span>
+                <span class="badge ${data.confidence > 0.80 ? 'bg-success' : data.confidence > 0.60 ? 'bg-warning text-dark' : 'bg-danger'}">
+                    Keyakinan: ${data.confidence_pct}
+                </span>
             </div>
         `;
-        
-        // Create probabilities chart
-        let chartHTML = '';
-        const sortedProbs = Object.entries(data.all_probabilities)
+
+        // Nama penyakit
+        document.getElementById('disease-name').innerHTML =
+            `<i class="fas ${isHealthy ? 'fa-heartbeat text-success' : 'fa-virus text-danger'} me-2"></i>${data.disease}`;
+
+        // Confidence bar
+        const pct = parseFloat(data.confidence_pct);
+        const bar = document.getElementById('confidence-bar');
+        bar.style.width   = pct + '%';
+        bar.textContent   = data.confidence_pct;
+        bar.className = 'progress-bar progress-bar-striped progress-bar-animated ' +
+            (data.confidence > 0.80 ? 'bg-success' : data.confidence > 0.60 ? 'bg-warning' : 'bg-danger');
+        document.getElementById('confidence-text').textContent =
+            `${data.confidence_pct} — Tingkat Kepercayaan: ${data.confidence_level}`;
+
+        // Deskripsi
+        const descBox = document.getElementById('description-box');
+        descBox.textContent = data.description;
+        descBox.className = `alert ${isHealthy ? 'alert-success' : 'alert-warning'}`;
+
+        // Severity badge
+        const sevMap = { 'Sangat Tinggi': 'danger', 'Tinggi': 'danger', 'Sedang-Tinggi': 'warning', 'Sedang': 'warning', 'Tidak ada': 'success' };
+        const sevColor = sevMap[data.severity] || 'secondary';
+        document.getElementById('severity-badge').innerHTML =
+            `<span class="badge bg-${sevColor} fs-6 p-3">Tingkat Keparahan:<br>${data.severity || '-'}</span>`;
+
+        document.getElementById('urgency-info').innerHTML =
+            `<i class="fas fa-clock me-2"></i><strong>Tindakan:</strong> ${data.urgency}`;
+
+        // Gejala
+        renderList('symptoms-list', data.symptoms, 'dot-circle text-warning', 'Tidak ada gejala spesifik tercatat.');
+
+        // Penyebab
+        renderList('causes-list', data.causes, 'arrow-right text-danger', 'Penyebab tidak spesifik.');
+
+        // Pencegahan
+        renderList('prevention-list', data.prevention, 'shield-alt text-secondary', 'Praktik pertanian yang baik.');
+
+        // ─── OBAT KIMIA (SPESIFIK PER PENYAKIT) ─────────────────
+        const medSection   = document.getElementById('medicine-section');
+        const medContainer = document.getElementById('medicine-list-container');
+        const medLabel     = document.getElementById('medicine-disease-label');
+        const orgSection   = document.getElementById('organic-section');
+        const orgContainer = document.getElementById('organic-list-container');
+
+        if (!isHealthy && data.recommended_medicines && data.recommended_medicines.length > 0) {
+            medLabel.textContent = 'untuk ' + data.disease;
+            medContainer.innerHTML = '';
+
+            data.recommended_medicines.forEach((med, idx) => {
+                const card = document.createElement('div');
+                card.className = 'card mb-3 border-0 bg-light';
+                card.innerHTML = `
+                    <div class="card-body py-2 px-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong class="text-danger">${idx + 1}. ${med.name}</strong>
+                                <span class="badge bg-secondary ms-2 small">${med.type}</span>
+                            </div>
+                            <span class="badge bg-${med.availability && med.availability.includes('khusus') ? 'warning text-dark' : 'success'} small">
+                                ${med.availability || 'Toko pertanian'}
+                            </span>
+                        </div>
+                        <div class="mt-1 small text-muted">
+                            <i class="fas fa-flask me-1"></i><strong>Bahan aktif:</strong> ${med.active_ingredient}<br>
+                            <i class="fas fa-prescription-bottle me-1"></i><strong>Dosis:</strong> ${med.dosage}<br>
+                            <i class="fas fa-spray-can me-1"></i><strong>Cara aplikasi:</strong> ${med.application}
+                        </div>
+                        ${med.warning ? `<div class="alert alert-danger py-1 px-2 mt-2 mb-0 small">
+                            <i class="fas fa-exclamation-triangle me-1"></i>${med.warning}
+                        </div>` : ''}
+                    </div>
+                `;
+                medContainer.appendChild(card);
+            });
+
+            // Notes referensi ilmiah
+            if (data.medicine_notes) {
+                document.getElementById('medicine-notes-text').textContent = ' ' + data.medicine_notes;
+                document.getElementById('medicine-notes-box').classList.remove('d-none');
+            } else {
+                document.getElementById('medicine-notes-box').classList.add('d-none');
+            }
+            medSection.style.display = 'block';
+        } else {
+            medSection.style.display = 'none';
+        }
+
+        // ─── ALTERNATIF ORGANIK ───────────────────────────────────
+        if (data.organic_alternatives && data.organic_alternatives.length > 0) {
+            orgContainer.innerHTML = '';
+            data.organic_alternatives.forEach((org, idx) => {
+                const card = document.createElement('div');
+                card.className = 'card mb-2 border-0 bg-light';
+                card.innerHTML = `
+                    <div class="card-body py-2 px-3 small">
+                        <strong class="text-success">${idx + 1}. ${org.name}</strong><br>
+                        <i class="fas fa-seedling me-1 text-muted"></i><strong>Bahan:</strong> ${org.ingredients}<br>
+                        <i class="fas fa-info-circle me-1 text-muted"></i><strong>Aplikasi:</strong> ${org.application}
+                    </div>
+                `;
+                orgContainer.appendChild(card);
+            });
+            orgSection.style.display = 'block';
+        } else {
+            orgSection.style.display = 'none';
+        }
+
+        // ─── CHART PROBABILITAS ───────────────────────────────────
+        const chartEl = document.getElementById('probabilitiesChart');
+        const sorted  = Object.entries(data.all_probabilities)
             .sort((a, b) => b[1] - a[1])
-            .slice(0, 5); // Show top 5
-        
-        sortedProbs.forEach(([disease, prob]) => {
-            const percentage = (prob * 100).toFixed(1);
-            chartHTML += `
+            .slice(0, 5);
+
+        chartEl.innerHTML = sorted.map(([name, prob]) => {
+            const pct   = (prob * 100).toFixed(1);
+            const isTop = name === data.disease;
+            return `
                 <div class="mb-2">
                     <div class="d-flex justify-content-between">
-                        <span>${disease}</span>
-                        <span>${percentage}%</span>
+                        <span class="${isTop ? 'fw-bold text-primary' : ''}">${name}${isTop ? ' ✓' : ''}</span>
+                        <span class="${isTop ? 'fw-bold text-primary' : ''}">${pct}%</span>
                     </div>
                     <div class="progress" style="height: 8px;">
-                        <div class="progress-bar" style="width: ${percentage}%; background: linear-gradient(90deg, var(--accent-color) 0%, var(--primary-color) 100%);"></div>
+                        <div class="progress-bar ${isTop ? 'bg-primary' : 'bg-secondary opacity-50'}"
+                             style="width: ${pct}%;"></div>
                     </div>
-                </div>
-            `;
-        });
-        
-        probabilitiesChart.innerHTML = chartHTML;
-        
-        // Show results with animation
+                </div>`;
+        }).join('');
+
         resultsSection.style.display = 'block';
         resultsSection.classList.add('fade-in');
-        
-        // Scroll to results
         resultsSection.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Reset upload
-    window.resetUpload = function() {
+    function renderList(elementId, items, iconClass, emptyMsg) {
+        const el = document.getElementById(elementId);
+        el.innerHTML = '';
+        if (items && items.length > 0) {
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'mb-1';
+                li.innerHTML = `<i class="fas fa-${iconClass} me-2"></i>${item}`;
+                el.appendChild(li);
+            });
+        } else {
+            el.innerHTML = `<li class="text-muted">${emptyMsg}</li>`;
+        }
+    }
+
+    // ── Reset ──────────────────────────────────────────────────────
+    window.resetUpload = function () {
         selectedFile = null;
         imageInput.value = '';
-        document.querySelector('.upload-content').style.display = 'block';
+        document.getElementById('uploadContent').style.display = 'block';
         previewContainer.style.display = 'none';
         resultsSection.style.display = 'none';
         loadingSpinner.style.display = 'none';
+        hideAlerts();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 });
 </script>
+
+<style>
+.stat-box {
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 1rem 0.5rem;
+    backdrop-filter: blur(8px);
+}
+.stat-num {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+.stat-label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.8);
+    margin-top: 4px;
+}
+</style>
 {% endblock %}

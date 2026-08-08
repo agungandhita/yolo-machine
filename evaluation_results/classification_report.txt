@@ -1,16 +1,16 @@
-                                             precision    recall  f1-score   support
+                            precision    recall  f1-score   support
 
-                      Tomato_Bacterial_spot       0.69      0.38      0.49       425
-                        Tomato_Early_blight       0.41      0.23      0.29       200
-                         Tomato_Late_blight       0.28      0.84      0.42       381
-                           Tomato_Leaf_Mold       0.30      0.69      0.41       190
-                  Tomato_Septoria_leaf_spot       0.79      0.31      0.45       354
-Tomato_Spider_mites_Two_spotted_spider_mite       0.49      0.52      0.50       335
-                        Tomato__Target_Spot       0.70      0.07      0.12       280
-      Tomato__Tomato_YellowLeaf__Curl_Virus       0.82      0.90      0.86       641
-                Tomato__Tomato_mosaic_virus       0.00      0.00      0.00        74
-                             Tomato_healthy       0.78      0.16      0.26       318
+            Bercak Bakteri       0.69      0.42      0.52       425
+           Hawar Daun Awal       0.32      0.20      0.25       200
+         Hawar Daun Lanjut       0.32      0.77      0.45       381
+                Jamur Daun       0.28      0.71      0.40       190
+      Bercak Daun Septoria       0.72      0.32      0.45       354
+          Tungau Laba-laba       0.50      0.55      0.53       335
+             Bercak Target       0.56      0.09      0.15       280
+Virus Keriting Daun Kuning       0.78      0.95      0.86       641
+        Virus Mozaik Tomat       0.00      0.00      0.00        74
+                     Sehat       0.79      0.17      0.28       318
 
-                                   accuracy                           0.50      3198
-                                  macro avg       0.53      0.41      0.38      3198
-                               weighted avg       0.61      0.50      0.47      3198
+                  accuracy                           0.51      3198
+                 macro avg       0.50      0.42      0.39      3198
+              weighted avg       0.58      0.51      0.48      3198

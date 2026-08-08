@@ -1,67 +1,304 @@
 {% extends "base.html" %}
 
-{% block title %}Evaluasi Model - TomatoDoc AI{% endblock %}
+{% block title %}Evaluasi Model — TomatoDoc AI{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── Hero ─────────────────────────────────────────────────────── */
+.eval-hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 3rem 0 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+/* ── Kartu Metrik ─────────────────────────────────────────────── */
+.metric-card {
+    border-radius: 18px;
+    padding: 2rem 1rem;
+    text-align: center;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.metric-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.18); }
+.metric-card .metric-value {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: .35rem;
+}
+.metric-card .metric-label   { font-size: 1rem; font-weight: 700; letter-spacing: .5px; }
+.metric-card .metric-desc    { font-size: .78rem; opacity: .8; margin-top: .3rem; }
+
+/* ── Section titles ───────────────────────────────────────────── */
+.section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    border-left: 5px solid var(--accent-color);
+    padding-left: .75rem;
+    margin-bottom: 1.2rem;
+}
+
+/* ── Tabel per kelas ──────────────────────────────────────────── */
+.table-eval th {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+.table-eval td  { vertical-align: middle; }
+.table-eval tr:hover { background: rgba(212,241,212,.3); }
+
+/* ── Mini bar F1 ──────────────────────────────────────────────── */
+.f1-bar  { height: 8px; border-radius: 4px; background: #dee2e6; overflow: hidden; margin-top: 4px; }
+.f1-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent-color), var(--primary-color)); transition: width .8s ease; }
+
+/* ── Confusion matrix ─────────────────────────────────────────── */
+.confusion-img {
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.18);
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ── Info note ────────────────────────────────────────────────── */
+.info-note {
+    border-left: 4px solid var(--accent-color);
+    background: rgba(212,241,212,.25);
+    border-radius: 0 12px 12px 0;
+    padding: 1rem 1.2rem;
+}
+
+/* ── Badge severity ───────────────────────────────────────────── */
+.badge-metric { font-size: .75rem; padding: 4px 10px; border-radius: 20px; }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row mb-4">
-        <div class="col-12 text-center">
-            <h2 class="fw-bold text-success">Hasil Evaluasi Model AI</h2>
-            <p class="text-muted">Metrik performa model YOLOv8 pada dataset validasi daun tomat</p>
+<!-- ── Hero ───────────────────────────────────────────────────────── -->
+<section class="eval-hero">
+    <div class="container text-center">
+        <h1 class="fw-bold mb-2">
+            <i class="fas fa-chart-pie me-3"></i>Evaluasi Model MobileNetV2
+        </h1>
+        <p class="mb-0" style="opacity:.85;">
+            Hasil pengujian pada dataset validasi PlantVillage — Stratified 80/20 Split ({{ metrics.total_samples if metrics else 0 }} sampel)
+        </p>
+    </div>
+</section>
+
+<div class="container pb-5">
+
+{% if metrics %}
+
+    <!-- ============================================================ -->
+    <!-- 1. Kartu 4 Metrik Utama                                      -->
+    <!-- ============================================================ -->
+    <h2 class="section-title">Metrik Keseluruhan Model</h2>
+    <div class="row g-3 mb-4">
+
+        <!-- Akurasi -->
+        <div class="col-6 col-md-3">
+            <div class="metric-card bg-primary text-white">
+                <div class="metric-value">{{ "%.2f"|format(metrics.accuracy * 100) }}%</div>
+                <div class="metric-label">Akurasi</div>
+                <div class="metric-desc">Overall Accuracy</div>
+                <div class="metric-desc mt-1">
+                    {{ metrics.total_samples | int }} sampel diuji
+                </div>
+            </div>
+        </div>
+
+        <!-- Presisi -->
+        <div class="col-6 col-md-3">
+            <div class="metric-card bg-success text-white">
+                <div class="metric-value">{{ "%.2f"|format(metrics.precision * 100) }}%</div>
+                <div class="metric-label">Presisi</div>
+                <div class="metric-desc">Weighted Precision</div>
+                <div class="metric-desc mt-1">Ketepatan prediksi positif</div>
+            </div>
+        </div>
+
+        <!-- Recall -->
+        <div class="col-6 col-md-3">
+            <div class="metric-card bg-warning text-dark">
+                <div class="metric-value">{{ "%.2f"|format(metrics.recall * 100) }}%</div>
+                <div class="metric-label">Recall</div>
+                <div class="metric-desc">Weighted Recall</div>
+                <div class="metric-desc mt-1">Kelengkapan deteksi</div>
+            </div>
+        </div>
+
+        <!-- F1-Score -->
+        <div class="col-6 col-md-3">
+            <div class="metric-card bg-danger text-white">
+                <div class="metric-value">{{ "%.2f"|format(metrics.f1_score * 100) }}%</div>
+                <div class="metric-label">F1-Score</div>
+                <div class="metric-desc">Weighted F1</div>
+                <div class="metric-desc mt-1">Rata-rata harmonik P &amp; R</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Info evaluasi -->
+    <div class="info-note mb-5">
+        <i class="fas fa-info-circle text-success me-2"></i>
+        <strong>Informasi Evaluasi:</strong>
+        Model diuji pada <strong>{{ metrics.total_samples }}</strong> gambar validasi
+        ({{ metrics.num_classes }} kelas) menggunakan <em>stratified 80/20 train-validation split</em>
+        dari dataset PlantVillage.
+        Metrik dihitung secara <em>weighted average</em> untuk mengakomodasi ketidakseimbangan jumlah sampel per kelas.
+        Nilai akurasi 51% mencerminkan tantangan nyata dalam membedakan penyakit yang secara visual mirip
+        (terutama Hawar Daun Awal vs Bercak Target dan Jamur Daun).
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 2. Tabel Metrik Per Kelas                                    -->
+    <!-- ============================================================ -->
+    {% if metrics.per_class %}
+    <h2 class="section-title">Metrik Per Kelas Penyakit</h2>
+    <div class="card mb-5">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-eval table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-3">#</th>
+                            <th>Kelas Penyakit</th>
+                            <th class="text-center">Presisi</th>
+                            <th class="text-center">Recall</th>
+                            <th class="text-center" style="min-width:200px;">F1-Score</th>
+                            <th class="text-center">Sampel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in metrics.per_class %}
+                        <tr>
+                            <td class="ps-3 text-muted">{{ loop.index }}</td>
+                            <td class="fw-semibold">{{ row.class }}</td>
+
+                            <!-- Presisi -->
+                            <td class="text-center">
+                                <span class="badge badge-metric
+                                    {% if row.precision >= 0.70 %}bg-success
+                                    {% elif row.precision >= 0.40 %}bg-warning text-dark
+                                    {% else %}bg-danger{% endif %}">
+                                    {{ "%.1f"|format(row.precision * 100) }}%
+                                </span>
+                            </td>
+
+                            <!-- Recall -->
+                            <td class="text-center">
+                                <span class="badge badge-metric
+                                    {% if row.recall >= 0.70 %}bg-success
+                                    {% elif row.recall >= 0.40 %}bg-warning text-dark
+                                    {% else %}bg-danger{% endif %}">
+                                    {{ "%.1f"|format(row.recall * 100) }}%
+                                </span>
+                            </td>
+
+                            <!-- F1 bar -->
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="f1-bar flex-grow-1">
+                                        <div class="f1-fill" style="--f1-w: {{ (row.f1_score * 100) | round(1) }}%; width: var(--f1-w);"></div>
+                                    </div>
+                                    <small class="fw-bold" style="min-width:40px;">{{ "%.1f"|format(row.f1_score * 100) }}%</small>
+                                </div>
+                            </td>
+
+                            <td class="text-center text-muted">{{ row.support }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    
-    <div class="row mb-5">
-        <div class="col-md-3 mb-3">
-            <div class="card bg-primary text-white text-center h-100 shadow">
-                <div class="card-body">
-                    <h1 class="display-4 fw-bold">{{ "%.2f"|format(metrics.accuracy * 100) if metrics else 'N/A' }}%</h1>
-                    <h5>Akurasi</h5>
+    {% endif %}
+
+    <!-- ============================================================ -->
+    <!-- 3. Confusion Matrix                                          -->
+    <!-- ============================================================ -->
+    <h2 class="section-title">Confusion Matrix</h2>
+    <div class="card mb-5">
+        <div class="card-body text-center p-4">
+            {% set cm_path = url_for('static', filename='images/confusion_matrix.png') %}
+            <img src="{{ cm_path }}"
+                 alt="Confusion Matrix — Deteksi Penyakit Daun Tomat"
+                 class="confusion-img"
+                 onerror="this.parentElement.innerHTML='<div class=\'alert alert-warning\'>Confusion matrix belum tersedia. Jalankan <code>python evaluate_model.py</code></div>'">
+            <p class="text-muted mt-3 mb-0 small">
+                <i class="fas fa-info-circle me-1"></i>
+                <strong>Cara membaca:</strong> Diagonal utama (biru tua) = prediksi benar.
+                Sel di luar diagonal = kesalahan klasifikasi.
+                Angka besar di luar diagonal menandakan kebingungan antar kelas serupa.
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 4. Interpretasi Hasil                                        -->
+    <!-- ============================================================ -->
+    <h2 class="section-title">Interpretasi Hasil Evaluasi</h2>
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <h6 class="text-success"><i class="fas fa-check-circle me-2"></i>Kelas dengan Performa Terbaik</h6>
+                    <ul class="mb-0">
+                        <li><strong>Virus Keriting Daun Kuning</strong> — F1 {{ "%.1f"|format(metrics.per_class[7].f1_score * 100) if metrics.per_class|length > 7 else 'N/A' }}%
+                            (presisi {{ "%.0f"|format(metrics.per_class[7].precision * 100) if metrics.per_class|length > 7 else 'N/A' }}%,
+                            recall {{ "%.0f"|format(metrics.per_class[7].recall * 100) if metrics.per_class|length > 7 else 'N/A' }}%)</li>
+                        <li><strong>Tungau Laba-laba</strong> — F1 {{ "%.1f"|format(metrics.per_class[5].f1_score * 100) if metrics.per_class|length > 5 else 'N/A' }}%</li>
+                        <li><strong>Bercak Bakteri</strong> — Presisi {{ "%.0f"|format(metrics.per_class[0].precision * 100) if metrics.per_class|length > 0 else 'N/A' }}%</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Kelas dengan Tantangan</h6>
+                    <ul class="mb-0">
+                        <li><strong>Virus Mozaik Tomat</strong> — F1 0% (hanya 74 sampel — sangat tidak seimbang)</li>
+                        <li><strong>Bercak Target</strong> — Recall {{ "%.0f"|format(metrics.per_class[6].recall * 100) if metrics.per_class|length > 6 else 'N/A' }}% (sering salah diklasifikasi)</li>
+                        <li><strong>Sehat</strong> — Recall {{ "%.0f"|format(metrics.per_class[9].recall * 100) if metrics.per_class|length > 9 else 'N/A' }}% (rentan false positive)</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card bg-success text-white text-center h-100 shadow">
-                <div class="card-body">
-                    <h1 class="display-4 fw-bold">{{ "%.2f"|format(metrics.precision * 100) if metrics else 'N/A' }}%</h1>
-                    <h5>Presisi</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card bg-warning text-dark text-center h-100 shadow">
-                <div class="card-body">
-                    <h1 class="display-4 fw-bold">{{ "%.2f"|format(metrics.recall * 100) if metrics else 'N/A' }}%</h1>
-                    <h5>Recall</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card bg-danger text-white text-center h-100 shadow">
-                <div class="card-body">
-                    <h1 class="display-4 fw-bold">{{ "%.2f"|format(metrics.f1_score * 100) if metrics else 'N/A' }}%</h1>
-                    <h5>F1-Score</h5>
-                </div>
+
+            <hr>
+            <h6 class="text-primary"><i class="fas fa-lightbulb me-2"></i>Penjelasan Nilai Akurasi</h6>
+            <p class="mb-2">
+                Akurasi <strong>{{ "%.1f"|format(metrics.accuracy * 100) }}%</strong> pada dataset ini terjadi karena beberapa faktor:
+            </p>
+            <ul class="mb-0">
+                <li>Dataset <strong>tidak seimbang</strong>: Virus Mozaik Tomat hanya 74 sampel vs Virus Keriting 641 sampel</li>
+                <li>Beberapa penyakit secara visual <strong>sangat mirip</strong> (Hawar Daun Awal vs Bercak Target)</li>
+                <li>Model butuh lebih banyak epoch fine-tuning dan augmentasi data untuk kelas minoritas</li>
+                <li>Nilai <strong>presisi {{ "%.1f"|format(metrics.precision * 100) }}%</strong> lebih tinggi dari akurasi, menunjukkan prediksi yang dibuat relatif tepat</li>
+            </ul>
+
+            <div class="alert alert-info mt-3 mb-0">
+                <i class="fas fa-flask me-2"></i>
+                <strong>Rekomendasi Pengembangan:</strong>
+                Tambah data augmentasi untuk Virus Mozaik Tomat (saat ini hanya 74 gambar),
+                gunakan teknik <em>oversampling</em> (SMOTE) atau <em>class weighting</em> yang lebih agresif,
+                dan perpanjang fine-tuning ke 30+ epoch dengan learning rate scheduler.
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="card shadow">
-                <div class="card-header bg-dark text-white">
-                    <h5 class="mb-0"><i class="fas fa-th me-2"></i>Confusion Matrix</h5>
-                </div>
-                <div class="card-body text-center">
-                    {% if metrics %}
-                    <img src="{{ url_for('static', filename='images/confusion_matrix.png') }}" alt="Confusion Matrix" class="img-fluid rounded border">
-                    <p class="text-muted mt-3">Matriks kebingungan menunjukkan distribusi prediksi benar (diagonal) vs salah (di luar diagonal) untuk setiap kelas penyakit.</p>
-                    {% else %}
-                    <div class="alert alert-warning">Data evaluasi belum tersedia. Silakan jalankan skrip evaluasi terlebih dahulu.</div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+{% else %}
+    <div class="alert alert-warning text-center py-5">
+        <i class="fas fa-exclamation-triangle fa-3x mb-3 d-block"></i>
+        <h5>Data Evaluasi Belum Tersedia</h5>
+        <p class="mb-2">Silakan jalankan skrip evaluasi terlebih dahulu:</p>
+        <code>python evaluate_model.py</code>
     </div>
+{% endif %}
+
 </div>
 {% endblock %}
